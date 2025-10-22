@@ -79,5 +79,68 @@
     "Category": "https://c-valorant-api.op.gg/Assets/ContentTiers/E046854E-406C-37F4-6607-19A9BA8426FC.svg",
     "image": "/assets/valorant_skins/champions2021_vandal.png",
     "desc": "La skin Champions 2021 Vandal es una adición impresionante a tu arsenal en Valorant. Con un diseño futurista y detalles vibrantes, esta skin no solo mejora la apariencia de tu arma, sino que también te brinda una experiencia única en el juego. Con detalles exclusivos y un diseño impresionante, es la elección perfecta para cualquier jugador serio."
+  },
+  {
+    "id": "aemondir-vandal",
+    "name": "Vandal Aemondir", 
+    "price": 55.00,
+    "Type": "Rifle",
+    "Category": "https://c-valorant-api.op.gg/Assets/ContentTiers/411E4A55-4E59-7757-41F0-86A53F101BB5.svg",
+    "image": "/assets/valorant_skins/aemondir_vandal.png",
+    "desc": "La skin Aemondir Vandal es una adición impresionante a tu arsenal en Valorant. Con un diseño futurista y detalles vibrantes, esta skin no solo mejora la apariencia de tu arma, sino que también te brinda una experiencia única en el juego. Con detalles exclusivos y un diseño impresionante, es la elección perfecta para cualquier jugador serio."
+  },
+  {
+    "id": "black-market-classic",
+    "name": "Classic Black Market",
+    "price": 10.00,
+    "Type": "Classic",
+    "Category": "https://c-valorant-api.op.gg/Assets/ContentTiers/60BCA009-4182-7998-DEE7-B8A2558DC369.svg",
+    "image": "/assets/valorant_skins/black_market_classic.png",
+    "desc": "La skin Classic Black Market es una adición impresionante a tu arsenal en Valorant. Con un diseño futurista y detalles vibrantes, esta skin no solo mejora la apariencia de tu arma, sino que también te brinda una experiencia única en el juego. Con detalles exclusivos y un diseño impresionante, es la elección perfecta para cualquier jugador serio."
+  },
+  {
+    "id": "spectrum-knife",
+    "name": "Spectrum Knife",
+    "price": 65.00,
+    "Type": "Knife",
+    "Category": "https://c-valorant-api.op.gg/Assets/ContentTiers/E046854E-406C-37F4-6607-19A9BA8426FC.svg",
+    "image": "/assets/valorant_skins/spectrum_knife.png",
+    "desc": "El Spectrum Knife es una adición impresionante a tu arsenal en Valorant. Con un diseño futurista y detalles vibrantes, esta skin no solo mejora la apariencia de tu arma, sino que también te brinda una experiencia única en el juego. Con detalles exclusivos y un diseño impresionante, es la elección perfecta para cualquier jugador serio."
+  },
+  {
+    "id": "glitchpop-phantom",
+    "name": "Phantom Glitchpop",
+    "price": 35.00,
+    "Type": "Rifle",
+    "Category": "https://c-valorant-api.op.gg/Assets/ContentTiers/411E4A55-4E59-7757-41F0-86A53F101BB5.svg",
+    "image": "/assets/valorant_skins/glitchpop_phantom.png",
+    "desc": "La skin Glitchpop Phantom es una adición impresionante a tu arsenal en Valorant. Con un diseño futurista y detalles vibrantes, esta skin no solo mejora la apariencia de tu arma, sino que también te brinda una experiencia única en el juego. Con detalles exclusivos y un diseño impresionante, es la elección perfecta para cualquier jugador serio."
+  },
+  {
+    "id": "prelude-to-chaos-sheriff",
+    "name": "Sheriff Prelude to Chaos",
+    "price": 12.00,
+    "Type": "Sheriff",
+    "Category": "https://c-valorant-api.op.gg/Assets/ContentTiers/60BCA009-4182-7998-DEE7-B8A2558DC369.svg",
+    "image": "/assets/valorant_skins/prelude_to_chaos_sheriff.png",
+    "desc": "La skin Prelude to Chaos Sheriff es una adición impresionante a tu arsenal en Valorant. Con un diseño futurista y detalles vibrantes, esta skin no solo mejora la apariencia de tu arma, sino que también te brinda una experiencia única en el juego. Con detalles exclusivos y un diseño impresionante, es la elección perfecta para cualquier jugador serio."
+  },
+  {
+    "id": "neo-frontier-odin",
+    "name": "Odin Neo Frontier",
+    "price": 28.00,
+    "Type": "Machine Gun",
+    "Category": "https://c-valorant-api.op.gg/Assets/ContentTiers/E046854E-406C-37F4-6607-19A9BA8426FC.svg",
+    "image": "/assets/valorant_skins/neo_frontier_odin.png",
+    "desc": "La skin Neo Frontier Odin es una adición impresionante a tu arsenal en Valorant. Con un diseño futurista y detalles vibrantes, esta skin no solo mejora la apariencia de tu arma, sino que también te brinda una experiencia única en el juego. Con detalles exclusivos y un diseño impresionante, es la elección perfecta para cualquier jugador serio."
+  },
+  {
+    "id": "blastx-odin",
+    "name": "Odin BlastX",
+    "price": 22.00,
+    "Type": "Machine Gun",
+    "Category": "https://c-valorant-api.op.gg/Assets/ContentTiers/411E4A55-4E59-7757-41F0-86A53F101BB5.svg",
+    "image": "/assets/valorant_skins/blastx_odin.png",
+    "desc": "La skin BlastX Odin es una adición impresionante a tu arsenal en Valorant. Con un diseño futurista y detalles vibrantes, esta skin no solo mejora la apariencia de tu arma, sino que también te brinda una experiencia única en el juego. Con detalles exclusivos y un diseño impresionante, es la elección perfecta para cualquier jugador serio."
   }
 ]

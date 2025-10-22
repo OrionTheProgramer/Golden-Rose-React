@@ -12,6 +12,7 @@ import Administrador from "./pages/admin/Administrador";
 import HomeClient from "./pages/HomeClient";
 import Blog from "./pages/Blog";
 import BlogDetailPage from "./pages/BlogDetailPage";
+import ReceiptPage from "./pages/ReceiptPage";
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/blog/:id" element={<BlogDetailPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
+          <Route path="/recibo" element={<ReceiptPage />} />
         </Route>
 
         {/* --- GRUPO DE RUTAS 2: Layout de Admin --- */}
