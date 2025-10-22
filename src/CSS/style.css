@@ -1,8 +1,5 @@
 /* --- Sistema de Diseño Moderno/Minimalista (Tema Oscuro Valorant) --- */
 
-/* 1. Definición de Colores (CSS Variables)
-   Usamos variables para cambiar el tema fácilmente en el futuro.
-*/
 :root {
   --color-background: #0f1923; 
   --color-surface: #1a232e;    
