@@ -10,7 +10,7 @@ function Home() {
 
   return (
     <Container className="my-5">
-      {/* Carousel de skins destacadas */}
+      {/* Carousel de skins destacadas (aun no funciona)*/}
       <Carousel  id='carouselSkins' interval={3000} pause='hover'>
         {featured.map((skin) => (
           <Carousel.Item key={skin.id}>
