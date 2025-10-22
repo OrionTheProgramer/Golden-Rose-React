@@ -32,6 +32,8 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
         </Route>
 
         {/* Todas las rutas de admin van aquí adentro */}
@@ -42,10 +44,6 @@ function App() {
           <Route path="/admin/productos" element={<AdminProductos />} />
           */}
         </Route>
-
-        {/* Estas rutas no tienen Navbar ni Footer */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Registro />} />
 
         {/* --- Ruta 404 --- */}
         <Route path="*" element={<h1 className="text-center m-2 p-5">404 - Página no encontrada</h1>} />
