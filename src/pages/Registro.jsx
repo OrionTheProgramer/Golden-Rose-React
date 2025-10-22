@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/icon.png';
 import "../css/style.css";
 import { registroUser } from '../data/authDataService';
-import ModalComponent from "../components/ModalComponent"; // Importamos el Modal
+import ModalComponent from "../components/ModalComponent"; 
 
 function Registro() {
     useEffect(() => {
@@ -212,7 +212,6 @@ function Registro() {
               </form>
             </div>
 
-            {/* Enlaces secundarios (sin 'border-top' ni 'text-primary') */}
             <div className="text-center py-4 mt-5">
               <p>
                 <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
