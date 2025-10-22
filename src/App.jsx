@@ -9,11 +9,14 @@ import Contacto from "./pages/Contacto";
 import Administrador from "./pages/admin/Administrador";
 import HomeClient from "./pages/HomeClient";
 import Blog from "./pages/Blog";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 function App() {
 
   return (
     <>
+      <Navbar />
       <Routes>
         {/* Rutas Públicas */}
         <Route path="/" element={<Home />} />

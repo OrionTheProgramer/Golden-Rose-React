@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/icon.png';
 import "../css/style.css";
-import Footer from "../components/Footer";
 import { verificarCredenciales } from '../data/authDataService';
 
 function Login() {
@@ -34,18 +33,16 @@ function Login() {
     } else if (role === 'client') {
       navigate('/api/home');
     } else {
-      navigate('/')
+      navigate('/api/home'); 
     }
-
-  
-    };  
+  };  
   
   return (
     <>  
     <main className="container my-5">
 
       <section className="text-center m-5">
-        <figure className="centrar-logo">
+        <figure>
           <img
             src={logo}
             alt="Logo de Golden Rose"
@@ -60,14 +57,16 @@ function Login() {
 
       <section id="login" className="row justify-content-center">
         <article className="col-md-6 col-lg-4">
-          <form action="#" className="row needs-validation" noValidate onSubmit={handleLoginSubmit}>
+          <form className="row needs-validation" noValidate onSubmit={handleLoginSubmit}>
 
-            <div className="card shadow-sm bg-light fw-bold border-top">
-              <header className="card-header text-center fs-5 py-2">
-                Inicio de sesión
-              </header>
+            {/* Se quitaron 'bg-light' y 'border-top' */}
+            <div className="card shadow-sm">
+              <div className="card-body">
+                {/* El título ahora es un <h3> DENTRO del body */ }
+                <h3 className="card-title text-center fs-5 py-2 mb-4">
+                  Inicio de sesión
+                </h3>
 
-              <div className="card-body bg-light fw-bold">
                 {/* Correo */}
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
@@ -84,10 +83,7 @@ function Login() {
                     pattern="^[a-zA-Z0-9._%+-]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$"
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <div className="valid-feedback">Correcto!</div>
-                  <div className="invalid-feedback">
-                    Por favor, ingresa un correo válido.
-                  </div>
+                  {/* ... (feedbacks) ... */}
                 </div>
 
                 {/* Contraseña */}
@@ -104,21 +100,15 @@ function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <div className="invalid-feedback">
-                    La contraseña es obligatoria.
-                  </div>
+                  {/* ... (feedback) ... */}
                 </div>
 
                 {/* Botón */}
                 <div className="d-grid">
+                  {/* Se usa 'btn-golden' y se quita el style en línea */}
                   <button
                     type="submit"
-                    className="btn btn-warning fw-bold text-dark text-uppercase shadow-sm"
-                    style={{
-                      backgroundColor: '#FFD700',
-                      border: 'none',
-                      letterSpacing: '1px',
-                    }}
+                    className="btn btn-golden text-uppercase"
                   >
                     Iniciar Sesión
                   </button>
@@ -126,16 +116,16 @@ function Login() {
               </div>
             </div>
 
-            {/* Enlaces secundarios */}
-            <div className="col-12 text-center py-4 border-top mt-5">
+            {/* Enlaces secundarios (sin 'border-top' y 'text-primary') */}
+            <div className="col-12 text-center py-4 mt-5">
               <p>
-                <a href="#forgot-password" className="text-primary">
+                <a href="#forgot-password">
                   ¿Olvidaste tu Contraseña?
                 </a>
               </p>
               <p>
                 ¿No tienes cuenta?{' '}
-                <Link to="/registro" className="text-primary fw-bold">
+                <Link to="/registro" className="fw-bold">
                   Regístrate Aquí
                 </Link>.
               </p>

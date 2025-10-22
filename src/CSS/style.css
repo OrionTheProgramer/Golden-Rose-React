@@ -267,3 +267,62 @@ footer {
   color: var(--color-secondary);
   text-decoration: underline;
 }
+
+/* --- INICIO PARCHE FORMULARIOS (LOGIN Y REGISTRO) --- */
+
+/* 1. Arreglar Headers ("Inicio de sesión", "Crea tu cuenta") */
+/* Los fuerza a tener fondo oscuro y texto blanco */
+#login .card-header,
+#registro .card-header {
+  color: var(--color-text) !important;
+  background-color: var(--color-surface) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+}
+
+/* 2. Forzar el fondo de la tarjeta (si sigue blanco) */
+#login .card,
+#registro .card {
+  background-color: var(--color-surface) !important;
+}
+
+/* 3. Arreglar las etiquetas ("Usuario", "Correo", etc.) */
+/* Las fuerza a ser gris claro */
+#login .form-label,
+#registro .form-label,
+#login .form-check-label,
+#registro .form-check-label {
+  color: var(--color-text-secondary) !important;
+}
+
+/* 4. Arreglar los inputs (blancos) */
+/* Los fuerza a ser oscuros */
+#login .form-control,
+#registro .form-control {
+  background-color: var(--color-background) !important;
+  color: var(--color-text) !important;
+  border-color: var(--color-border) !important;
+}
+
+/* 5. Arreglar links ("términos", "olvidaste contraseña") */
+/* Los fuerza a ser rojos */
+#login a,
+#registro a {
+  color: var(--color-primary);
+}
+#login a:hover,
+#registro a:hover {
+  color: #ff7f8a; /* Rojo más claro */
+}
+
+/* 6. Arreglar el botón dorado (para asegurar texto negro) */
+.btn-golden {
+  background-color: var(--color-secondary) !important;
+  color: #000 !important; /* Texto negro */
+}
+
+/* 7. Arreglar texto 'Acepto los...' (que se ve negro) */
+#registro .form-check {
+  color: var(--color-text-secondary);
+}
+
+/* --- FIN PARCHE FORMULARIOS --- */

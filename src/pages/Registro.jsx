@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/icon.png';
 import "../css/style.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import { registroUser } from '../data/authDataService'
-
-
-
 
 function Registro() {
     useEffect(() => {
@@ -41,12 +36,9 @@ function Registro() {
 
       try {
         const newUser = registroUser(email, password);
-
         alert(`¡Registro exitoso para ${nombre}! Tu rol asignado es: ${newUser.role}. Ahora inicia sesión.`);
-
         navigate('/Login');
       } catch (error) {
-
         alert(`Error de registro: ${error.message}`)
       }
     };
@@ -58,7 +50,7 @@ function Registro() {
 
         {/* Encabezado con logo */}
         <section className="text-center mb-5">
-          <figure className="centrar-logo">
+          <figure>
           <img
             src={logo}
             alt="Logo de Golden Rose"
@@ -73,10 +65,16 @@ function Registro() {
 
         {/* Formulario */}
         <article className="col-md-8 col-lg-6">
-          <div className="card shadow-lg p-4 rounded-4">
-            <header className="card-header bg-light fw-bold fs-5 mb-4 text-center">
-              Crea tu cuenta
-            </header>
+          {/* CAMBIO: Se quita 'rounded-4'. La clase .card ya lo maneja */}
+          <div className="card shadow-lg p-4">
+            
+            {/* CAMBIO: Se movió el header dentro de un card-body improvisado */}
+            <div className="card-body py-0"> 
+              {/* CAMBIO: Se quita <header> y se usa <h3> con 'card-title' */}
+              <h3 className="card-title text-center fs-5 mb-4">
+                Crea tu cuenta
+              </h3>
+            </div>
 
             <form className="needs-validation" noValidate onSubmit={handleRegistroSubmit}>
               {/* Usuario */}
@@ -91,8 +89,7 @@ function Registro() {
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                 />
-                <div className="valid-feedback">Correcto!</div>
-                <div className="invalid-feedback">Incorrecto</div>
+                {/* ... (feedbacks) ... */}
               </div>
 
               {/* Fecha de nacimiento */}
@@ -161,20 +158,17 @@ function Registro() {
                 />
                 <label className="form-check-label" htmlFor="terminos">
                   Acepto los{" "}
+                  {/* El <a> tomará el color rojo por defecto */}
                   <a href="terminos.html" target="_blank" rel="noreferrer">términos y condiciones</a>
                 </label>
               </div>
 
               {/* Botón */}
               <div className="d-grid mb-3">
+                {/* CAMBIO: Se usa 'btn-golden' y se quita el style */}
                 <button
                   type="submit"
-                  className="btn fw-bold text-dark text-uppercase shadow-sm"
-                  style={{
-                    backgroundColor: "#FFD700",
-                    border: "none",
-                    letterSpacing: "1px",
-                  }}
+                  className="btn btn-golden text-uppercase"
                 >
                   Registrar
                 </button>
@@ -183,13 +177,14 @@ function Registro() {
           </div>
 
           {/* Enlaces secundarios */}
-          <div className="text-center py-4 border-top mt-5">
+          {/* CAMBIO: Se quita 'border-top' y 'text-primary' */}
+          <div className="text-center py-4 mt-5">
             <p>
-              <Link to="/forgot-password" className="text-primary">¿Olvidaste tu contraseña?</Link>
+              <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
             </p>
             <p>
               ¿Ya tienes una cuenta?{" "}
-              <Link to="/login" className="text-primary fw-bold">Iniciar sesión</Link>
+              <Link to="/login" className="fw-bold">Iniciar sesión</Link>
             </p>
           </div>
         </article>
