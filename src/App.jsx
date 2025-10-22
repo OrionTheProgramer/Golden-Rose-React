@@ -1,11 +1,6 @@
-// src/App.jsx
 import { Route, Routes } from "react-router-dom";
-
-// Importa tus Layouts
 import MainLayout from "./components/MainLayout";
 import AdminLayout from "./components/AdminLayout";
-
-// Importa tus Páginas
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Registro from "./pages/Registro";
@@ -16,14 +11,14 @@ import Contacto from "./pages/Contacto";
 import Administrador from "./pages/admin/Administrador";
 import HomeClient from "./pages/HomeClient";
 import Blog from "./pages/Blog";
-// NOTA: Ya no necesitas importar Footer o Navbar aquí
 
 function App() {
+
   return (
     <>
       <Routes>
         
-        {/* Todas las rutas DENTRO de este grupo se renderizarán DENTRO de <MainLayout /> */}
+        {/* --- GRUPO DE RUTAS 1: Layout Principal (Cliente y Visitante) --- */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/api/home" element={<HomeClient />} />
@@ -33,16 +28,12 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Registro />} />
+          <Route path="/registro" element={<Registro />} />
         </Route>
 
-        {/* Todas las rutas de admin van aquí adentro */}
+        {/* --- GRUPO DE RUTAS 2: Layout de Admin --- */}
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<Administrador />} />
-          {/* Si tuvieras más páginas de admin, irían aquí:
-          <Route path="/admin/usuarios" element={<AdminUsuarios />} />
-          <Route path="/admin/productos" element={<AdminProductos />} />
-          */}
         </Route>
 
         {/* --- Ruta 404 --- */}
@@ -50,7 +41,7 @@ function App() {
       
       </Routes>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

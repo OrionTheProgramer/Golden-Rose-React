@@ -326,3 +326,31 @@ footer {
 }
 
 /* --- FIN PARCHE FORMULARIOS --- */
+
+/* --- INICIO ESTILOS MODAL OSCURO --- */
+
+.modal-content {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: 12px;
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-body p {
+  color: var(--color-text-secondary);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--color-border);
+}
+
+/* Botón de cerrar 'x' (para que sea blanco) */
+.btn-close {
+  filter: invert(1) grayscale(100) brightness(200%);
+}
+
+/* --- FIN ESTILOS MODAL OSCURO --- */

@@ -1,114 +1,54 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/icon.png";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js"; 
-import "../css/style.css";
-
-
-
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; 
+import logo from '../assets/Bocetos/Original_logo.png'; 
 
 function NavbarClient() {
+  const auth = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userRole');
-
-    navigate('/login')
+    auth.logout(); 
+    navigate('/'); 
   };
 
   return (
-    <header>
-      <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: "#ff4655" }}>
-        <div className="container">
-          {/* Logo y nombre */}
-          <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
-            <img
-              src={logo}
-              alt="Logo"
-              width="48"
-              height="48"
-              style={{
-                borderRadius: "12px",
-                boxShadow: "0 2px 8px #ffb6c1",
-                background: "#fff",
-                padding: "2px",
-              }}
-            />
-            <span
-              style={{
-                fontSize: "1.7rem",
-                fontWeight: "bold",
-                letterSpacing: "1px",
-                color: "#FFD700",
-                textShadow: "1px 1px 8px #ffb6c1",
-              }}
-            >
-              Golden Rose
-            </span>
-          </Link>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <img
+          src={logo}
+          width="30"
+          height="30"
+          className="d-inline-block align-top"
+          alt="Logo"
+          style={{ marginRight: '10px' }}
+        />
+        <Navbar.Brand as={Link} to="/api/home">Golden Rose</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          
+          {/* Enlaces de la izquierda */}
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/api/home">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/marketplace">Mercado</Nav.Link>
+            <Nav.Link as={Link} to="/carrito">Carrito</Nav.Link>
+          </Nav>
+          
+          {/* Enlaces de la derecha (Cliente) */}
+          <Nav>
+            <NavDropdown title="Mi Cuenta" id="basic-nav-dropdown" align="end">
+              <NavDropdown.Item as={Link} to="/perfil">Ver Perfil</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/mis-compras">Mis Compras</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={handleLogout}>
+                Cerrar Sesión
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
 
-          {/* Botón menú móvil */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          {/* Enlaces */}
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/api/home">
-                    Home
-                </Link>
-              </li>              
-              <li className="nav-item">
-                <Link className="nav-link" to="/">Inicio</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/marketplace">Productos</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/blog">Blog</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/contacto">Contacto</Link>
-              </li>          
-              <li className="nav-item">
-                <Link className="nav-link" to="/carrito">                
-                  <button className="btn btn-primary btn-sm">
-                      <i className="bi bi-cart">
-                      </i> Carrito (0)
-                  </button>
-                </Link>
-
-              </li>    
-              <li className="nav-item">
-                  <Link className="nav-link" to="/perfil">
-                      <i class="bi bi-person-circle"></i> Mi Perfil
-                  </Link>
-              </li>
-              <li className="nav-item">
-                  <button 
-                      className="btn btn-danger ms-2" 
-                      onClick={handleLogout}
-                  >
-                      Cerrar Sesión
-                  </button>
-              </li>                                          
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

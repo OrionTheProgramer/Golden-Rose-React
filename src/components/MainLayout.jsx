@@ -2,18 +2,15 @@ import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import NavbarClient from './NavbarClient';
 import Footer from './Footer';
+import { useAuth } from '../context/AuthContext'; 
 
 function MainLayout() {
-  // Revisa el rol del usuario guardado en el localStorage
-  const userRole = localStorage.getItem('userRole');
+  const { userRole } = useAuth();
 
   return (
     <>
-      {/* Lógica condicional: 
-          Si el rol es 'client', muestra NavbarClient.
-          Si no (es 'guest' o null), muestra Navbar.
-      */}
       {userRole === 'client' ? <NavbarClient /> : <Navbar />}
+
       <main>
         <Outlet />
       </main>
