@@ -20,6 +20,7 @@ import Productos from "./pages/admin/Productos";
 import NuevoProducto from "./components/admin/producto/NuevoProducto";
 import MostrarProductos from "./components/admin/producto/MostrarProductos";
 import EditarProducto from "./components/admin/producto/EditarProducto";
+import ReceiptPage from "./pages/ReceiptPage";
 
 import Usuarios from "./pages/admin/Usuarios";
 import NuevoUsuario from "./components/admin/usuario/NuevoUsuario";
