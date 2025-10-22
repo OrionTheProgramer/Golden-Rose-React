@@ -324,30 +324,37 @@ footer {
 
 /* --- FIN PARCHE FORMULARIOS --- */
 
-/* --- INICIO ESTILOS MODAL OSCURO --- */
-
+/* 1. Forzar el fondo oscuro y el color de texto */
 .modal-content {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  border-radius: 12px;
+  background-color: var(--color-surface) !important; 
+  color: var(--color-text) !important; 
+  border: 1px solid var(--color-border) !important;
+  border-radius: 12px !important;
 }
 
+/* 2. Forzar el color del título */
+.modal-content .modal-header .modal-title {
+   color: var(--color-text) !important;
+}
+
+/* 3. Forzar el color del texto del cuerpo */
+/* Hacemos esto más específico para ganar */
+.modal-content .modal-body,
+.modal-content .modal-body p {
+  color: var(--color-text-secondary) !important;
+}
+
+/* 4. Estilos del header y footer */
 .modal-header {
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border) !important;
 }
-
-.modal-body p {
-  color: var(--color-text-secondary);
-}
-
 .modal-footer {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border) !important;
 }
 
-/* Botón de cerrar 'x' (para que sea blanco) */
-.btn-close {
-  filter: invert(1) grayscale(100) brightness(200%);
+/* 5. Forzar el botón de cerrar 'X' a ser blanco */
+.modal-content .btn-close {
+  filter: invert(1) grayscale(100) brightness(200%) !important;
 }
 
 /* --- FIN ESTILOS MODAL OSCURO --- */
