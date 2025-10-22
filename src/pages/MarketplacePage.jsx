@@ -8,7 +8,7 @@ function MarketplacePage() {
   // Estado para la barra de búsqueda (por nombre)
   const [searchQuery, setSearchQuery] = useState('');
   // Estado para el filtro (por tipo de arma)
-  const [selectedType, setSelectedType] = useState('all'); // 'all' = Todos
+  const [selectedType, setSelectedType] = useState('all'); // 'all' = Todos (por si no sabes ingles pedazo de animal)
 
   // --- Lógica de Filtros ---
 
