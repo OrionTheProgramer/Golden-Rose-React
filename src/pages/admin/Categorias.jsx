@@ -1,4 +1,6 @@
 import React from 'react'
+import MostrarCategorias from '../../components/admin/categorias/MostrarCategorias'
+import NuevaCategoria from '../../components/admin/categorias/NuevaCategoria'
 
 function Categorias() {
   return (
@@ -8,28 +10,18 @@ function Categorias() {
         {/* Encabezado principal */}
         <header className="d-flex justify-content-between align-items-center mb-4">
           <h2>Categorías</h2>
-
         </header>
-
-        {/* Sección: Resumen */}
-        <section
-          className="mb-4 p-4 bg-white border rounded"
-          style={{ height: "350px" }}
-        >
-          <article>
-            <h2 className="text-dark">Resumen</h2>
-          </article>
+    
+        <section>
+          <MostrarCategorias/>
         </section>
 
-        {/* Sección: Reportes */}
-        <section
-          className="p-4 bg-white border rounded"
-          style={{ height: "350px" }}
-        >
-          <article className="text-dark">
-            <h2>Reportes</h2>
-          </article>
+        <section>
+          <NuevaCategoria/>
         </section>
+
+
+        
       </main>
       
     </div>    

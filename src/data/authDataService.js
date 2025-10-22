@@ -62,6 +62,13 @@ export const registroUser = (username, email, password) => {
     return nuevoUser;
 };
 
+// ActualizarUsuario
+export const actualizarUsuario = (usuarioActualizado) => {
+  users = users.map(u => u.email === usuarioActualizado.email ? usuarioActualizado : u);
+  guardarUsers(users);
+};
+
+
 // Devuelve todos los usuarios
 export const ObtenerTodosUsers = () => {
     return [...users];
