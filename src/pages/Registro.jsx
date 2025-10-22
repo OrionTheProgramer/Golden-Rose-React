@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/icon.png';
 import "../css/style.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { registroUser } from '../data/authDataService'
 
 
 
@@ -11,8 +14,46 @@ function Registro() {
       document.title = "Registrarse | Golden Rose";
     }, []);
 
+    const [nombre, setNombre] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmarPassword, setConfirmarPassword ] = useState('')
+    const [aceptaTerminos, setAceptaTerminos] = useState(false);
+    const navigate = useNavigate(); // Hook de navegacion
+
+    const handleRegistroSubmit = (event) => {
+      event.preventDefault();
+
+      if (!email || !password || !nombre){
+        alert("Error: Por favor, completa todos los campos requeridos.");
+        return;
+      }
+
+      if (password !== confirmarPassword) {
+        alert("Error: Las contraseñas no coinciden. Por favor, verifica.");
+        return;
+      }
+
+      if (!aceptaTerminos) {
+          alert("Debes aceptar los términos y condiciones para registrarte.");
+          return;
+      }      
+
+      try {
+        const newUser = registroUser(email, password);
+
+        alert(`¡Registro exitoso para ${nombre}! Tu rol asignado es: ${newUser.role}. Ahora inicia sesión.`);
+
+        navigate('/Login');
+      } catch (error) {
+
+        alert(`Error de registro: ${error.message}`)
+      }
+    };
+
   return (
     <>
+    <Navbar />
     <main className="container my-5">
       <section id="registro" className="row justify-content-center">
 
@@ -38,11 +79,19 @@ function Registro() {
               Crea tu cuenta
             </header>
 
-            <form className="needs-validation" noValidate>
+            <form className="needs-validation" noValidate onSubmit={handleRegistroSubmit}>
               {/* Usuario */}
               <div className="mb-4">
                 <label htmlFor="nombre" className="form-label">Usuario</label>
-                <input type="text" name="username" id="nombre" className="form-control" required />
+                <input 
+                  type="text" 
+                  name="username"
+                  id="nombre" 
+                  className="form-control" 
+                  required 
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                />
                 <div className="valid-feedback">Correcto!</div>
                 <div className="invalid-feedback">Incorrecto</div>
               </div>
@@ -56,19 +105,43 @@ function Registro() {
               {/* Correo */}
               <div className="mb-4">
                 <label htmlFor="correo" className="form-label">Correo</label>
-                <input type="email" name="correo" id="correo" className="form-control" required />
+                <input 
+                  type="email" 
+                  name="correo" 
+                  id="correo" 
+                  className="form-control" 
+                  required 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
 
               {/* Contraseña */}
               <div className="mb-4">
                 <label htmlFor="password" className="form-label">Contraseña</label>
-                <input type="password" id="password" name="contraseña" className="form-control" required />
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="contraseña" 
+                  className="form-control" 
+                  required 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
 
               {/* Confirmar contraseña */}
               <div className="mb-4">
                 <label htmlFor="confirmar" className="form-label">Confirmar Contraseña</label>
-                <input type="password" id="confirmar" name="contraseña-confirmar" className="form-control" required />
+                <input 
+                  type="password" 
+                  id="confirmar" 
+                  name="contraseña-confirmar" 
+                  className="form-control" 
+                  required 
+                  value={confirmarPassword}
+                  onChange={(e) => setConfirmarPassword(e.target.value)}
+                />
               </div>
 
               {/* Teléfono opcional */}
@@ -79,7 +152,14 @@ function Registro() {
 
               {/* Términos y condiciones */}
               <div className="form-check mb-4">
-                <input className="form-check-input" type="checkbox" id="terminos" required />
+                <input 
+                  className="form-check-input" 
+                  type="checkbox" 
+                  id="terminos" 
+                  required 
+                  checked={aceptaTerminos}
+                  onChange={(e) => setAceptaTerminos(e.target.checked)}
+                />
                 <label className="form-check-label" htmlFor="terminos">
                   Acepto los{" "}
                   <a href="terminos.html" target="_blank" rel="noreferrer">términos y condiciones</a>
@@ -116,6 +196,7 @@ function Registro() {
         </article>
       </section>
     </main>
+    <Footer/>
     </>
   );
 }

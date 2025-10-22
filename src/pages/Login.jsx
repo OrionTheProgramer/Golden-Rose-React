@@ -1,17 +1,50 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/icon.png';
+import Navbar from "../components/Navbar";
 import "../css/style.css";
-
+import Footer from "../components/Footer";
+import { verificarCredenciales } from '../data/authDataService';
 
 function Login() {
   useEffect(() => {
     document.title = "Inicio Sesion | Golden Rose";
   }, []);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    
+    const authResult = verificarCredenciales(email, password);
+
+    if(!authResult) {
+      alert('Error en el inicio de sesión: Correo o Contraseña inválidos.');
+      return;      
+    }
+
+    const { token, role } = authResult;
+
+    localStorage.setItem('token', token);
+    localStorage.setItem('userRole', role);
+
+    if (role === 'admin'){
+      navigate('/admin');
+    } else if (role === 'client') {
+      navigate('/api/home');
+    } else {
+      navigate('/')
+    }
+
+  
+    };  
   
   return (
     <>  
-    <main class="container my-5">
+    <Navbar />
+    <main className="container my-5">
 
       <section className="text-center m-5">
         <figure className="centrar-logo">
@@ -29,7 +62,7 @@ function Login() {
 
       <section id="login" className="row justify-content-center">
         <article className="col-md-6 col-lg-4">
-          <form action="#" className="row needs-validation" method="post" noValidate>
+          <form action="#" className="row needs-validation" noValidate onSubmit={handleLoginSubmit}>
 
             <div className="card shadow-sm bg-light fw-bold border-top">
               <header className="card-header text-center fs-5 py-2">
@@ -42,9 +75,16 @@ function Login() {
                   <label htmlFor="email" className="form-label">
                     Correo Institucional / Personal
                   </label>
-                  <input type="email" name="username" id="email" className="form-control"required
+                  <input 
+                    type="email" 
+                    name="username" 
+                    id="email" 
+                    className="form-control"
+                    required
                     maxLength="100"
+                    value={email}
                     pattern="^[a-zA-Z0-9._%+-]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <div className="valid-feedback">Correcto!</div>
                   <div className="invalid-feedback">
@@ -57,7 +97,15 @@ function Login() {
                   <label htmlFor="password" className="form-label">
                     Contraseña
                   </label>
-                  <input id="password" name="password" type="password" className="form-control" required/>
+                  <input 
+                    id="password" 
+                    name="password" 
+                    type="password" 
+                    className="form-control" 
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                   <div className="invalid-feedback">
                     La contraseña es obligatoria.
                   </div>
@@ -98,6 +146,7 @@ function Login() {
         </article>
       </section>  
     </main>
+    <Footer/>
     </>
   );
 }
