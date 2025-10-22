@@ -11,25 +11,7 @@ function Categorias() {
 
         </header>
 
-        {/* Sección: Resumen */}
-        <section
-          className="mb-4 p-4 bg-white border rounded"
-          style={{ height: "350px" }}
-        >
-          <article>
-            <h2 className="text-dark">Resumen</h2>
-          </article>
-        </section>
-
-        {/* Sección: Reportes */}
-        <section
-          className="p-4 bg-white border rounded"
-          style={{ height: "350px" }}
-        >
-          <article className="text-dark">
-            <h2>Reportes</h2>
-          </article>
-        </section>
+        
       </main>
       
     </div>    

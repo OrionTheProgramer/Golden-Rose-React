@@ -59,25 +59,25 @@ function SideBarAdmin() {
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="/" className="nav-link text-dark">
+                    <Link to="admin/productos" className="nav-link text-dark">
                     <i className="bi bi-box-seam me-2"></i> Productos
                     </Link>
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="/" className="nav-link text-dark">
+                    <Link to="admin/categorias" className="nav-link text-dark">
                     <i className="bi bi-clipboard-data me-2"></i> Categorías
                     </Link>
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="/empleados" className="nav-link text-dark">
+                    <Link to="admin/usuarios" className="nav-link text-dark">
                     <i className="bi bi-people me-2"></i> Usuarios
                     </Link>
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="/clientes" className="nav-link text-dark">
+                    <Link to="admin/reportes" className="nav-link text-dark">
                     <i className="bi bi-person-lines-fill me-2"></i> Reporte
                     </Link>
                 </li>
@@ -86,7 +86,7 @@ function SideBarAdmin() {
 
             <section className="m-1">
                 <div>
-                    <Link to="/perfil" className="btn btn-outline-secondary w-100">
+                    <Link to="/admin/perfil" className="btn btn-outline-secondary w-100">
                         <i className="bi bi-person-circle me-2"></i> Perfil
                     </Link>
                 </div>

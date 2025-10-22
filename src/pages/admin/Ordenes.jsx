@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import TablaOrdenes from "../../components/TablaOrdenes";
-import PaginacionPerson from "../../components/PaginacionPerson";
+import TablaOrdenes from "../../components/admin/TablaOrdenes";
+import PaginacionPerson from "../../components/admin/PaginacionPerson";
 
 const pedidosDatos = [
     { fecha: "2025-10-01", orden: "ORD-VAL-1021", cliente: "PlayerOne", estado: "Completado", importe: 18990 },
@@ -24,23 +24,25 @@ function Ordenes() {
 
   return (
     <>
-    <div className="container py-4">
 
-        {/* Encabezado principal */}
-        <header className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Ordenes</h2>
-        </header>
-        <TablaOrdenes
-            ordenes={pedidosActuales}
-        />
+    <div className="d-flex">
+        <main className="main-content rosegold m-1 p-4">
 
-        <PaginacionPerson
-            paginasTotales={paginasTotales}
-            paginaActual={paginaActual}
-            onPageChange={setPaginaActual}
-        />
+            {/* Encabezado principal */}
+            <header className="d-flex justify-content-between align-items-center mb-4">
+                <h2>Ordenes</h2>
+            </header>
+            <TablaOrdenes
+                ordenes={pedidosActuales}
+            />
 
-      
+            <PaginacionPerson
+                paginasTotales={paginasTotales}
+                paginaActual={paginaActual}
+                onPageChange={setPaginaActual}
+            />
+
+        </main>
     </div>    
     </>
   )

@@ -13,6 +13,11 @@ import HomeClient from "./pages/HomeClient";
 import Blog from "./pages/Blog";
 import BlogDetailPage from "./pages/BlogDetailPage";
 import Ordenes from "./pages/admin/Ordenes";
+import Productos from "./pages/admin/Productos";
+import Categorias from "./pages/admin/Categorias";
+import Usuarios from "./pages/admin/Usuarios";
+import Reportes from "./pages/admin/Reportes";
+import PerfilAdmin from "./pages/admin/PerfilAdmin";
 
 function App() {
 
@@ -38,6 +43,12 @@ function App() {
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<Administrador />} />
           <Route path="/admin/ordenes" element={<Ordenes />} />
+          <Route path="/admin/productos" element={<Productos />} />
+          <Route path="/admin/categorias" element={<Categorias />} />
+          <Route path="/admin/usuarios" element={<Usuarios />} />
+          <Route path="/admin/reportes" element={<Reportes />} />
+          <Route path="/admin/perfil" element={<PerfilAdmin/>} />
+          
         </Route>
 
         {/* --- Ruta 404 --- */}

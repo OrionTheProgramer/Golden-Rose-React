@@ -4,6 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/style.css";
+import NuevoProducto from "../../components/admin/NuevoProducto";
+import MostrarProductos from "../../components/admin/MostrarProductos";
+import ProductosCriticos from "../../components/admin/ProductosCriticos";
+import Reportes from "../../components/admin/Reportes";
+
 
 function Administrador() {
   useEffect(() => {
@@ -67,25 +72,33 @@ function Administrador() {
           </div>
         </header>
 
-        {/* Sección: Resumen */}
         <section
-          className="mb-4 p-4 bg-white border rounded"
-          style={{ height: "350px" }}
-        >
-          <article>
-            <h2 className="text-dark">Resumen</h2>
-          </article>
-        </section>
-
-        {/* Sección: Reportes */}
-        <section
-          className="p-4 bg-white border rounded"
+          className="card mb-3 bg-white border rounded"
           style={{ height: "350px" }}
         >
           <article className="text-dark">
-            <h2>Reportes</h2>
+            <MostrarProductos />
           </article>
         </section>
+
+        <section
+          className="card mb-3 bg-white border rounded"
+          style={{ height: "350px" }}
+        >
+          <article className="text-dark">
+            <ProductosCriticos />
+          </article>
+        </section>
+        
+        <section
+          className="card mb-3 bg-white border rounded"
+          style={{ height: "350px" }}>
+            
+          <article className="text-dark">
+            <Reportes />
+          </article>
+        </section>
+        
       </main>
       
     </div>
