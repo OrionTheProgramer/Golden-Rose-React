@@ -53,7 +53,6 @@ function Registro() {
 
   return (
     <>
-    <Navbar />
     <main className="container my-5">
       <section id="registro" className="row justify-content-center">
 
@@ -196,7 +195,6 @@ function Registro() {
         </article>
       </section>
     </main>
-    <Footer/>
     </>
   );
 }

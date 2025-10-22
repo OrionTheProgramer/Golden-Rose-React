@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import SideBarAdmin from "../../components/SideBarAdmin";
-import "../../css/home_style.css";
+import "../../css/style.css";
 
 function Administrador() {
   useEffect(() => {

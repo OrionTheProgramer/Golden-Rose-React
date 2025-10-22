@@ -10,15 +10,16 @@ function Home() {
 
   return (
     <Container className="my-5">
-      {/* Carousel de skins destacadas (aun no funciona)*/}
-      <Carousel  id='carouselSkins' interval={3000} pause='hover'>
+      {/* Carousel de skins destacadas */}
+      {/* El ID se mantiene para que el CSS le aplique el estilo de sombra y tamaño */}
+      <Carousel id='carouselSkins' interval={3000} pause='hover'>
         {featured.map((skin) => (
           <Carousel.Item key={skin.id}>
             <div style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }} onClick={() => navigate(`/skin/${skin.id}`)}>
+              {/* No más 'style' en línea, el CSS lo maneja */}
               <img
                 src={skin.image}
                 alt={skin.name}
-                style={{ maxHeight: '400px', objectFit: 'contain' }}
               />
             </div>
             <Carousel.Caption>
@@ -30,13 +31,17 @@ function Home() {
       </Carousel>
 
       {/* Sección de reseñas */}
-      <section className="mt-5" id='comentarios'>
+      {/* Mantenemos el ID para el estilo del <h2> */}
+      <section className="mt-5" id='comentarios'> 
         <h2 className="mb-4 text-center">Comentarios y calificaciones</h2>
         <Row>
+          {/* Columna 1 */}
           <Col md={4}>
-            <Card className="mb-3 knife-card comentario-text" id='comentarios h2'>
+            {/* Solo se necesita la clase .card y el margen 'mb-3' */}
+            <Card className="mb-3">
               <Card.Body>
-                <Card.Title style={{ color: 'white' }}>Juan</Card.Title>
+                {/* No más 'style' en línea */}
+                <Card.Title>Juan</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">5/5</Card.Subtitle>
                 <Card.Text>
                   Excelente selección de skins. Servicio rápido y precios justos.
@@ -45,10 +50,12 @@ function Home() {
               </Card.Body>
             </Card>
           </Col>
+
+          {/* Columna 2 */}
           <Col md={4}>
-            <Card className="mb-3 knife-card">
+            <Card className="mb-3">
               <Card.Body>
-                <Card.Title style={{ color: 'white' }}>María</Card.Title>
+                <Card.Title>María</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">4.5/5</Card.Subtitle>
                 <Card.Text>
                   Gran experiencia, la skin llegó en perfecto estado.
@@ -57,10 +64,12 @@ function Home() {
               </Card.Body>
             </Card>
           </Col>
+
+          {/* Columna 3 */}
           <Col md={4}>
-            <Card className="mb-3 knife-card">
+            <Card className="mb-3">
               <Card.Body>
-                <Card.Title style={{ color: 'white' }}>Carlos</Card.Title>
+                <Card.Title>Carlos</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">5/5</Card.Subtitle>
                 <Card.Text>
                   Muy recomendado, buen soporte y producto tal cual la descripción.

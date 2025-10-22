@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Carrito from "./pages/Carrito";
 import Contacto from "./pages/Contacto";
 import Administrador from "./pages/admin/Administrador";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/marketplace" element={<MarketplacePage />} />
         <Route path="/skin/:id" element={<SkinDetailPage />} />
       </Routes>
+      <Footer />
     </>
   )
 }
