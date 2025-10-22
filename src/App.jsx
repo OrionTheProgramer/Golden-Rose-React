@@ -11,6 +11,7 @@ import Contacto from "./pages/Contacto";
 import Administrador from "./pages/admin/Administrador";
 import HomeClient from "./pages/HomeClient";
 import Blog from "./pages/Blog";
+import BlogDetailPage from "./pages/BlogDetailPage";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/carrito" element={<Carrito />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetailPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
         </Route>

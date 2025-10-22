@@ -157,7 +157,7 @@ function Carrito() {
 
               <div className="d-flex justify-content-between align-items-center border-top pt-3 mb-3">
                 <h6 className="mb-0 fw-semibold">Total</h6>
-                <h5 className="mb-0 fw-bold text-dark">$70.599</h5>
+                <h5 className="mb-0 fw-bold">$70.599</h5>
               </div>
 
               <div className="card text-center">

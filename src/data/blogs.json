@@ -1,0 +1,38 @@
+[
+  {
+    "id": "blog-1",
+    "title": "Las 5 skins de Vandal más codiciadas este 2025",
+    "author": "Leandro 'Orión'",
+    "date": "2025-10-21",
+    "votes": 125,
+    "content": "El Vandal es el rey de los rifles en Valorant, y tener una skin que impresione es casi tan importante como acertar los disparos. En este post, analizamos las 5 skins que todos desean tener en su colección, desde la clásica Reaver hasta la nueva y exclusiva Champions 2025. Veremos por qué su sonido, animaciones y efectos de remate las hacen tan especiales y por qué dominan el mercado.",
+    "comments": [
+      { "id": "c1", "user": "Player1", "text": "¡La Reaver es la mejor sin duda!" },
+      { "id": "c2", "user": "Player2", "text": "Prefiero la Prime. El sonido es más limpio." }
+    ]
+  },
+  {
+    "id": "blog-2",
+    "title": "Guía de economía: Cuándo forzar y cuándo ahorrar",
+    "author": "Jane 'Viper' Doe",
+    "date": "2025-10-18",
+    "votes": 98,
+    "content": "Saber manejar tu economía en Valorant es tan importante como tu puntería. Un error común en rangos bajos es forzar la compra en rondas donde no deberías. En esta guía completa, desglosamos las matemáticas detrás de las rondas de eco, las semi-compras y cuándo es el momento correcto para hacer una 'full buy' con tu equipo. Domina tu economía y empezarás a ganar más partidas, garantizado.",
+    "comments": [
+      { "id": "c3", "user": "Newbie", "text": "¡Muy útil, gracias!" }
+    ]
+  },
+  {
+    "id": "blog-3",
+    "title": "Análisis del nuevo Agente: ¿Cómo 'Clove' cambia el meta?",
+    "author": "Leandro 'Orión'",
+    "date": "2025-10-15",
+    "votes": 210,
+    "content": "El nuevo agente 'Clove' ha llegado y está rompiendo esquemas. Como Controlador, su habilidad para colocar humos incluso después de morir cambia fundamentalmente la forma en que se juegan las rondas de post-plant. ¿Es demasiado poderoso? ¿Cómo puedes contrarrestarlo? Aquí analizamos sus habilidades una por una y te damos los mejores consejos para sacarle el máximo partido o para no sufrir en su contra.",
+    "comments": [
+      { "id": "c4", "user": "RazeMain", "text": "Me encanta, es súper agresivo." },
+      { "id": "c5", "user": "OmenFan", "text": "Interesante, pero Omen sigue siendo el rey." },
+      { "id": "c6", "user": "CypherPro", "text": "Sus humos son fáciles de leer." }
+    ]
+  }
+]
