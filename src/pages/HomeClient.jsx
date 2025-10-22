@@ -12,7 +12,6 @@ function HomeClient() {
 
   return (
     <>
-    <NavbarClient />
     <Container className="my-5">
       {/* Carousel de skins destacadas */}
       <Carousel  id='carouselSkins' interval={3000} pause='hover'>

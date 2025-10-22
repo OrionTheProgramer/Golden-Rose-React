@@ -1,4 +1,11 @@
+// src/App.jsx
 import { Route, Routes } from "react-router-dom";
+
+// Importa tus Layouts
+import MainLayout from "./components/MainLayout";
+import AdminLayout from "./components/AdminLayout";
+
+// Importa tus Páginas
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Registro from "./pages/Registro";
@@ -9,46 +16,43 @@ import Contacto from "./pages/Contacto";
 import Administrador from "./pages/admin/Administrador";
 import HomeClient from "./pages/HomeClient";
 import Blog from "./pages/Blog";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
+// NOTA: Ya no necesitas importar Footer o Navbar aquí
 
 function App() {
-
   return (
     <>
       <Routes>
-        {/* Rutas Públicas */}
-        <Route path="/" element={<Home />} />
+        
+        {/* Todas las rutas DENTRO de este grupo se renderizarán DENTRO de <MainLayout /> */}
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/api/home" element={<HomeClient />} />
+          <Route path="/marketplace" element={<MarketplacePage />} />
+          <Route path="/skin/:id" element={<SkinDetailPage />} />
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/blog" element={<Blog />} />
+        </Route>
+
+        {/* Todas las rutas de admin van aquí adentro */}
+        <Route element={<AdminLayout />}>
+          <Route path="/admin" element={<Administrador />} />
+          {/* Si tuvieras más páginas de admin, irían aquí:
+          <Route path="/admin/usuarios" element={<AdminUsuarios />} />
+          <Route path="/admin/productos" element={<AdminProductos />} />
+          */}
+        </Route>
+
+        {/* Estas rutas no tienen Navbar ni Footer */}
         <Route path="/login" element={<Login />} />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route path="/blog" element={<Blog />} />
         <Route path="/registro" element={<Registro />} />
-        <Route path="/carrito" element={<Carrito />} />
-        <Route path="/marketplace" element={<MarketplacePage />} />
-        <Route path="/skin/:id" element={<SkinDetailPage />} />
 
-        <Route 
-          path="/api/home" 
-          element={
-          <HomeClient />
-        } 
-        />
-
-        {/* Proteger Rutas */}
-        <Route 
-          path="/admin" 
-          element={
-            
-          <Administrador/>
-        } 
-        />
-
-        {/* Ruta inexistente (404) */}
+        {/* --- Ruta 404 --- */}
         <Route path="*" element={<h1 className="text-center m-2 p-5">404 - Página no encontrada</h1>} />
+      
       </Routes>
-      <Footer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
