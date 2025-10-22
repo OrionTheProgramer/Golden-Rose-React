@@ -18,6 +18,9 @@ import Categorias from "./pages/admin/Categorias";
 import Usuarios from "./pages/admin/Usuarios";
 import Reportes from "./pages/admin/Reportes";
 import PerfilAdmin from "./pages/admin/PerfilAdmin";
+import NuevoProducto from "./components/admin/NuevoProducto";
+import MostrarProductos from "./components/admin/MostrarProductos";
+import EditarProducto from "./components/admin/EditarProducto";
 
 function App() {
 
@@ -44,6 +47,10 @@ function App() {
           <Route path="/admin" element={<Administrador />} />
           <Route path="/admin/ordenes" element={<Ordenes />} />
           <Route path="/admin/productos" element={<Productos />} />
+          <Route path="/admin/productos/nuevo" element={<NuevoProducto />} />
+          <Route path="/admin/productos/mostrar" element={<MostrarProductos />} />
+          <Route path="/admin/productos/editar" element={<EditarProducto />} />
+
           <Route path="/admin/categorias" element={<Categorias />} />
           <Route path="/admin/usuarios" element={<Usuarios />} />
           <Route path="/admin/reportes" element={<Reportes />} />

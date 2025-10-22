@@ -77,7 +77,7 @@ function Administrador() {
           style={{ height: "350px" }}
         >
           <article className="text-dark">
-            <MostrarProductos />
+            <MostrarProductos/>
           </article>
         </section>
 
