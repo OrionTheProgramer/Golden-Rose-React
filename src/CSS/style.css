@@ -351,3 +351,18 @@ footer {
 }
 
 /* --- FIN ESTILOS MODAL OSCURO --- */
+
+main.main-content {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.section-box {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
