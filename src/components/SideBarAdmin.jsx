@@ -47,13 +47,13 @@ function SideBarAdmin() {
         <nav className="flex-grow-1 m-2">
             <ul className="nav nav-pills flex-column">
                 <li className="nav-item mb-1">
-                    <Link to="/" className="nav-link active">
+                    <Link to="/admin" className="nav-link active">
                     <i className="bi bi-grid me-2"></i> Dashboard
                     </Link>
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="/" className="nav-link text-dark ">
+                    <Link to="admin/ordenes" className="nav-link text-dark ">
                     <i className="bi bi-bag me-2"></i> Ordenes
                     </Link>
                 </li>

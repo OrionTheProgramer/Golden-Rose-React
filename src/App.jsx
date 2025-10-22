@@ -12,6 +12,7 @@ import Administrador from "./pages/admin/Administrador";
 import HomeClient from "./pages/HomeClient";
 import Blog from "./pages/Blog";
 import BlogDetailPage from "./pages/BlogDetailPage";
+import Ordenes from "./pages/admin/Ordenes";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
         {/* --- GRUPO DE RUTAS 2: Layout de Admin --- */}
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<Administrador />} />
+          <Route path="/admin/ordenes" element={<Ordenes />} />
         </Route>
 
         {/* --- Ruta 404 --- */}
