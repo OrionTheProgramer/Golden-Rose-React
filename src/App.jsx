@@ -4,26 +4,45 @@ import Login from "./pages/Login";
 import Registro from "./pages/Registro";
 import MarketplacePage from "./pages/MarketplacePage";
 import SkinDetailPage from "./pages/SkinDetailPage";
-import Navbar from "./components/Navbar";
 import Carrito from "./pages/Carrito";
 import Contacto from "./pages/Contacto";
 import Administrador from "./pages/admin/Administrador";
-import Footer from "./components/Footer";
+import HomeClient from "./pages/HomeClient";
+import Blog from "./pages/Blog";
 
 function App() {
 
   return (
     <>
-      <Navbar />
       <Routes>
+        {/* Rutas Públicas */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/index.html" element={<Administrador/>} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/marketplace" element={<MarketplacePage />} />
         <Route path="/skin/:id" element={<SkinDetailPage />} />
+
+        <Route 
+          path="/api/home" 
+          element={
+          <HomeClient />
+        } 
+        />
+
+        {/* Proteger Rutas */}
+        <Route 
+          path="/admin" 
+          element={
+            
+          <Administrador/>
+        } 
+        />
+
+        {/* Ruta inexistente (404) */}
+        <Route path="*" element={<h1 className="text-center m-2 p-5">404 - Página no encontrada</h1>} />
       </Routes>
       <Footer />
     </>
