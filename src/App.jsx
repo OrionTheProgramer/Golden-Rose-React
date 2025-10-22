@@ -16,7 +16,6 @@ function App() {
 
   return (
     <>
-      <Navbar />
       <Routes>
         {/* Rutas Públicas */}
         <Route path="/" element={<Home />} />
