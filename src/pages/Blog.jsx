@@ -8,10 +8,7 @@ function Blog() {
     }, []);  
   return (
     <>
-    <Navbar/>
     <div>Blog</div> 
-
-    <Footer/>
     </>
 
   )

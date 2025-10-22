@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/icon.png';
-import Navbar from "../components/Navbar";
 import "../css/style.css";
 import Footer from "../components/Footer";
 import { verificarCredenciales } from '../data/authDataService';
@@ -43,7 +42,6 @@ function Login() {
   
   return (
     <>  
-    <Navbar />
     <main className="container my-5">
 
       <section className="text-center m-5">
@@ -146,7 +144,6 @@ function Login() {
         </article>
       </section>  
     </main>
-    <Footer/>
     </>
   );
 }

@@ -76,7 +76,6 @@ function HomeClient() {
         </Row>
       </section>
     </Container>
-    <Footer/>
     </>
   );
 }

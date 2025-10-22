@@ -44,6 +44,7 @@ function App() {
         {/* Ruta inexistente (404) */}
         <Route path="*" element={<h1 className="text-center m-2 p-5">404 - Página no encontrada</h1>} />
       </Routes>
+      <Footer />
     </>
   )
 }

@@ -1,164 +1,269 @@
-/* Pagina General */
+/* --- Sistema de Diseño Moderno/Minimalista (Tema Oscuro Valorant) --- */
 
+/* 1. Definición de Colores (CSS Variables)
+   Usamos variables para cambiar el tema fácilmente en el futuro.
+*/
+:root {
+  --color-background: #0f1923; 
+  --color-surface: #1a232e;    
+  --color-text: #f9f9f9;        
+  --color-text-secondary: #adb5bd; 
+  --color-border: #3a3f44;       
+  --color-primary: #ff4655;      
+  --color-secondary: #FFD700;    
+}
+
+/* 2. Estilos Globales */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+p {
+  color: var(--color-text-secondary);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #ff7f8a; /* Rojo más claro */
+}
+
+/* 3. Estilos de Marca (Golden Rose) */
+.fonts-golden-rose-v2,
+.fonts-golden-rose-v1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--color-secondary);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Sombra dorada sutil */
+}
+
+.icon-logo-v1,
 .icon-logo-v2 {
-  border-radius: 100px; 
-  box-shadow: 0 2px 8px #ffb6c1; 
-  background: #fff; 
-  padding: 2px;
+  border-radius: 100px;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.6); /* Sombra dorada */
+  background: var(--color-surface);
+  padding: 4px;
+  border: 1px solid var(--color-secondary);
 }
 
-.icon-logo-v1{
-  border-radius: 100px; 
-  box-shadow: 0 2px 8px #ffb6c1; 
-  background: #fff; 
-  padding: 2px;
-
+/* 4. Formularios (Login, Registro, Contacto) */
+.form-control,
+.form-select,
+.form-check-input {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
 }
 
-.fonts-golden-rose-v1{
-  font-size: 1.7rem; 
-  font-weight: bold; 
-  letter-spacing: 1px; 
-  color: #FFD700; 
-  text-shadow: 1px 1px 8px #ffb6c1;
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.25rem rgba(255, 70, 85, 0.25); /* Foco rojo */
 }
 
+.form-control::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+}
 
-.fonts-golden-rose-v2{
-  font-weight: bold; 
-  letter-spacing: 1px; 
-  color: #FFD700; 
-  text-shadow: 1px 1px 8px #ffb6c1;
+.form-label {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* 5. Botones (Modernos y consistentes) */
+.btn-primary {
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 70, 85, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #ff6f7a; /* Rojo más claro */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 70, 85, 0.4);
 }
 
 .btn-golden {
-  background-color: #FFD700;
+  background-color: var(--color-secondary);
   border: none;
   color: #000;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(255, 182, 193, 0.6);
-  transition: all 0.2s ease-in-out;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  padding: 10px 20px;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease-in-out;
 }
 
 .btn-golden:hover {
   background-color: #e6c200;
   color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
 }
 
-.menu_theme{
-    background-color: #1F1F2A;
-}
-
-
-.centrar-logo{
-    text-align: center;
-}
-
-
-.rose_gold {
-      background-color: #0f1923;
-      color: #fff;
-}
-
-.navbar {
-  background-color: #ff4655;
-}
-.card {
-  background-color: #ffffff;
-  border: none;
-}
-.card-title, .card-text {
-  color: #222222;
-}
-
+/* 6. Tarjetas (Cards) - El cambio más importante */
+.card,
+.product-card,
 .cart-item {
-  background-color: #ffffff;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px; /* Más redondeado */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: var(--color-text);
+  overflow: hidden; /* Para que la imagen se adapte a las esquinas */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.product-card {
-  background-color: #ffffff; 
-  border: 1px solid rgba(34,34,34,0.06);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+.card:hover,
+.product-card:hover,
+.cart-item:hover {
+  transform: translateY(-5px); /* Animación sutil al pasar el mouse */
+  box-shadow: 0 6px 20px rgba(255, 70, 85, 0.3); /* Sombra roja (hover) */
+  border-color: var(--color-primary);
 }
-.product-card .card-body {
-  background-color: #ffffff;
-  color: #222222;
+
+.card-title, .card-text {
+  color: var(--color-text);
+}
+
+.card-subtitle {
+  color: var(--color-text-secondary);
 }
 
 .product-card-img {
-  height: 180px; 
+  height: 200px;
   width: 100%;
-  object-fit: contain; 
-  background-color: #f8f9fa; 
-}
-.btn-primary {
-  background-color: #ff4655;
-  border: none;
-}
-.btn-primary:hover {
-  background-color: #ff6f7a;
+  object-fit: contain;
+  background-color: var(--color-background); /* Fondo oscuro para la imagen */
+  padding: 10px;
 }
 
+.card-body {
+  background-color: var(--color-surface);
+}
+
+.card-title {
+  color: var(--color-text) !important;
+}
+
+.card-subtitle.text-muted {
+  color: var(--color-text-secondary) !important;
+}
+
+
+/* 7. Componentes Específicos */
+
+/* Navbar */
+.navbar {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Utilidades y clases legacy provenientes de home_style.css */
+.rosegold {
+  background: linear-gradient(180deg, rgba(26,35,46,0.6), rgba(15,25,35,0.95));
+  border-radius: 10px;
+  color: var(--color-text);
+}
+
+/* Footer */
 footer {
-  background: #1a232e;
-  color: #fff;
-  padding: 1rem 0;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  padding: 2rem 0;
   text-align: center;
   margin-top: 2rem;
+  border-top: 1px solid var(--color-border);
 }
 
-/* Ventana emergente */
-
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 1; /* Encima de todo */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.4); /* Fondo semitransparente */
-}
-
+/* Modal (Ventana emergente) */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% del tope y centrado */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 8px;
-    text-align: center;
-    position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+  color: var(--color-text-secondary);
+  text-shadow: none;
+  opacity: 0.7;
+}
+.close:hover {
+  color: var(--color-text);
+  opacity: 1;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+/* Carousel (Home) */
+#carouselSkins .carousel-item img {
+  max-height: 420px;
+  width: 100%;
+  object-fit: contain;
+  image-rendering: auto;
+  background: transparent; /* Fondo transparente */
+  filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.5));
 }
 
-button#abrirNotificacionBtn {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
+@media (max-width: 768px) {
+  #carouselSkins .carousel-item img {
+    max-height: 220px;
+  }
 }
 
-button#abrirNotificacionBtn:hover {
-    background-color: #45a049;
+/* Sección Comentarios (Home) */
+#comentarios h2 {
+  color: var(--color-secondary);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
-
+/* Estilos de `home_style.css` que sí eran únicos y útiles */
+.footer-extended {
+  background: #181e26; /* Un poco más oscuro que el 'surface' */
+  border-top: 2px solid var(--color-secondary);
+}
+.footer-title {
+  color: var(--color-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 0.7rem;
+  letter-spacing: 1px;
+}
+.footer-extended a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-extended a:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
