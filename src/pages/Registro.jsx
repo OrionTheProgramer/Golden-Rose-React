@@ -10,11 +10,8 @@ function Registro() {
       document.title = "Registrarse | Golden Rose";
     }, []);
 
-    const [nombre, setNombre] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmarPassword, setConfirmarPassword ] = useState('')
-    const [aceptaTerminos, setAceptaTerminos] = useState(false);
+    const [validated, setValidated] = useState(false);
+
     const navigate = useNavigate();
 
     // Estados para controlar el modal
@@ -29,39 +26,41 @@ function Registro() {
       setShowModal(true);
     };
 
-    const handleRegistroSubmit = (event) => {
-      event.preventDefault();
+  const handleRegistroSubmit = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
 
-      // Reemplazamos todos los alerts() por el modal
-      if (!email || !password || !nombre){
-        handleShowModal('Error de Registro', 'Por favor, completa todos los campos requeridos.');
+
+    if (form.checkValidity() === false) {
+      event.stopPropagation(); // evita envío si hay errores
+    } else {
+
+      const username = form.username.value;
+      const email = form.correo.value;
+      const password = form.password.value;
+      const confirmar = form.confirmar.value;
+
+      if (password !== confirmar) {
+        handleShowModal("Error", "Las contraseñas no coinciden");
+        setValidated(true); 
         return;
       }
-
-      if (password !== confirmarPassword) {
-        handleShowModal('Error de Registro', 'Las contraseñas no coinciden. Por favor, verifica.');
-        return;
-      }
-
-      if (!aceptaTerminos) {
-          handleShowModal('Error de Registro', 'Debes aceptar los términos y condiciones para registrarte.');
-          return;
-      }      
 
       try {
-        const newUser = registroUser(email, password);
-        
-        // Usamos el modal para el mensaje de éxito
-        handleShowModal(
-          '¡Registro Exitoso!', 
-          `¡Registro exitoso para ${nombre}! Tu rol asignado es: ${newUser.role}. Ahora inicia sesión.`
-        );
-        // No navegamos de inmediato, esperamos a que el usuario cierre el modal
+        const newUser = registroUser(username, email, password);
 
+        handleShowModal(`¡Registro exitoso para ${username}!\nTu rol asignado es: ${newUser.role}.\nAhora inicia sesión.`);
+        
       } catch (error) {
-        handleShowModal('Error de Registro', error.message);
-      }
-    };
+
+        handleShowModal(`Error de registro: ${error.message}`);
+      } 
+      
+      
+    } 
+     
+    setValidated(true); 
+  };
 
   return (
     <>
@@ -108,7 +107,11 @@ function Registro() {
                 </h3>
               </div>
 
-              <form className="needs-validation" noValidate onSubmit={handleRegistroSubmit}>
+              <form 
+                className={`needs-validation ${validated ? "was-validated" : ""}`}
+                noValidate 
+                onSubmit={handleRegistroSubmit}>
+
                 {/* Usuario */}
                 <div className="mb-4">
                   <label htmlFor="nombre" className="form-label">Usuario</label>
@@ -118,16 +121,20 @@ function Registro() {
                     id="nombre" 
                     className="form-control" 
                     required 
-                    value={nombre}
-                    onChange={(e) => setNombre(e.target.value)}
                   />
-                  {/* ... (feedbacks) ... */}
+                  <div className="invalid-feedback">Ingresa tu usuario.</div> 
                 </div>
 
                 {/* Fecha de nacimiento */}
                 <div className="mb-4">
                   <label htmlFor="fecha_nacimiento" className="form-label">Fecha de Nacimiento</label>
-                  <input type="date" id="fecha_nacimiento" className="form-control" />
+                  <input 
+                    type="date" 
+                    name="fecha_nacimiento"
+                    className="form-control" 
+                    required
+                  />
+                  <div className="invalid-feedback">Ingresa tu fecha de nacimiento.</div>
                 </div>
 
                 {/* Correo */}
@@ -135,13 +142,12 @@ function Registro() {
                   <label htmlFor="correo" className="form-label">Correo</label>
                   <input 
                     type="email" 
-                    name="correo" 
                     id="correo" 
+                    name="correo" 
                     className="form-control" 
                     required 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
                   />
+                  <div className="invalid-feedback">Ingresa un correo válido.</div>
                 </div>
 
                 {/* Contraseña */}
@@ -150,12 +156,13 @@ function Registro() {
                   <input 
                     type="password" 
                     id="password" 
-                    name="contraseña" 
-                    className="form-control" 
-                    required 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name="password" 
+                    className="form-control"                      
+                    required
+                    minLength={6}
+                    
                   />
+                  <div className="invalid-feedback">Ingresa tu contraseña (mínimo 6 caracteres).</div>
                 </div>
 
                 {/* Confirmar contraseña */}
@@ -163,13 +170,12 @@ function Registro() {
                   <label htmlFor="confirmar" className="form-label">Confirmar Contraseña</label>
                   <input 
                     type="password" 
-                    id="confirmar" 
-                    name="contraseña-confirmar" 
+                    id="confirmar"
+                    name="confirmar" 
                     className="form-control" 
                     required 
-                    value={confirmarPassword}
-                    onChange={(e) => setConfirmarPassword(e.target.value)}
                   />
+                  <div className="invalid-feedback">Las contraseñas no coinciden.</div>
                 </div>
 
                 {/* Teléfono opcional */}
@@ -181,17 +187,16 @@ function Registro() {
                 {/* Términos y condiciones */}
                 <div className="form-check mb-4">
                   <input 
-                    className="form-check-input" 
-                    type="checkbox" 
-                    id="terminos" 
+                    type="checkbox"
+                    className="form-check-input"  
+                    name="terminos"
                     required 
-                    checked={aceptaTerminos}
-                    onChange={(e) => setAceptaTerminos(e.target.checked)}
                   />
                   <label className="form-check-label" htmlFor="terminos">
                     Acepto los{" "}
                     <a href="terminos.html" target="_blank" rel="noreferrer">términos y condiciones</a>
                   </label>
+                  <div className="invalid-feedback">Debes aceptar los términos.</div>
                 </div>
 
                 {/* Botón */}

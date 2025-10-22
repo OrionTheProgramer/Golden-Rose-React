@@ -38,7 +38,7 @@ export const verificarCredenciales = (email, password) => {
 }
 
 // Registro de usuario con validaciones
-export const registroUser = (email, password) => {
+export const registroUser = (username, email, password) => {
     
     const dominio = email.split('@')[1];
     let role = 'client';
@@ -51,7 +51,7 @@ export const registroUser = (email, password) => {
         throw new Error("El correo ya está registrado.");
     }
 
-    const nuevoUser = { email, password, role};
+    const nuevoUser = { username, email, password, role};
     
     users.push(nuevoUser);
     
