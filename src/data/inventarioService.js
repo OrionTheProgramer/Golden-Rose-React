@@ -35,9 +35,31 @@ export const editarProducto = (id, datosActualizados) => {
   return null;
 };
 
+// Actualizar un producto
+export const actualizarProducto = (productoActualizado) => {
+  const productos = JSON.parse(localStorage.getItem("productos")) || [];
+  const nuevos = productos.map(p =>
+    p.id === productoActualizado.id ? productoActualizado : p
+  );
+  localStorage.setItem("productos", JSON.stringify(nuevos));
+};
+
 // Mostrar productos
 export const obtenerProductos = () => {
   return cargarProductos();
+};
+
+// Obtener un producto por id
+export const obtenerProductoPorId = (id) => {
+  const productos = JSON.parse(localStorage.getItem("productos")) || [];
+  return productos.find(p => p.id === id);
+};
+
+export const eliminarProducto = (id) => {
+  const productos = cargarProductos(); 
+  const nuevosProductos = productos.filter(p => p.id !== id); 
+  guardarProductos(nuevosProductos); 
+  return nuevosProductos; 
 };
 
 // Productos críticos (poco stock)

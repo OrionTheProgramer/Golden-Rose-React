@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { obtenerProductos } from "../../data/inventarioService";
 
-function Reportes() {
+function Reporte() {
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
@@ -24,4 +24,4 @@ function Reportes() {
   )
 }
 
-export default Reportes
+export default Reporte;

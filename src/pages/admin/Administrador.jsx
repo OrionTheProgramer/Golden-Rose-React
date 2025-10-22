@@ -4,10 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/style.css";
-import NuevoProducto from "../../components/admin/NuevoProducto";
-import MostrarProductos from "../../components/admin/MostrarProductos";
-import ProductosCriticos from "../../components/admin/ProductosCriticos";
-import Reportes from "../../components/admin/Reportes";
+import MostrarProductos from "../../components/admin/producto/MostrarProductos";
+import ProductosCriticos from "../../components/admin/producto/ProductosCriticos";
+import Reportes from "../../components/admin/Reporte";
 
 
 function Administrador() {

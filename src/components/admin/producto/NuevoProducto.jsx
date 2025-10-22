@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { agregarProducto } from "../../data/inventarioService";
+import { agregarProducto } from "../../../data/inventarioService";
 import { useNavigate } from "react-router-dom";
 
 function NuevoProducto() {
@@ -13,6 +13,7 @@ function NuevoProducto() {
         agregarProducto({ nombre, precio: Number(precio), stock: Number(stock), categoria });
         setNombre(""); setPrecio(""); setStock(""); setCategoria("");
         alert("Producto agregado!");
+        
     };
 
     const navigate = useNavigate();

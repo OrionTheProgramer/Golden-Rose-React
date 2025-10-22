@@ -1,7 +1,7 @@
 import React from 'react'
-import MostrarProductos from '../../components/admin/MostrarProductos'
+import MostrarProductos from '../../components/admin/producto/MostrarProductos'
 import { useNavigate } from 'react-router-dom';
-import ProductosCriticos from '../../components/admin/ProductosCriticos';
+import ProductosCriticos from "../../components/admin/producto/ProductosCriticos";
 
 function Productos() {
     const navigate = useNavigate();
@@ -32,7 +32,7 @@ function Productos() {
             <button
               style={{ fontSize: "14px", padding: "6px 12px" }}
               className="btn btn-warning"
-              onClick={() => navigate("/admin/productos/editar")}
+              onClick={() => navigate("/admin/productos/editar/:id")}
             >
               Editar Producto
             </button>                                  
