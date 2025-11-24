@@ -2,20 +2,28 @@
 
 const jsonHeaders = { "Content-Type": "application/json" };
 
+const getProductoBase = () => apiBase.producto || apiBase.catalogo;
+
 export const obtenerProductos = async () => {
-  const res = await fetch(`${apiBase.catalogo}/api/productos`);
+  let res = await fetch(`${getProductoBase()}/api/productos`);
+  if (!res.ok) {
+    res = await fetch(`${apiBase.catalogo}/api/productos`);
+  }
   if (!res.ok) throw new Error("No se pudieron obtener productos");
   return res.json();
 };
 
 export const obtenerProductoPorId = async (id) => {
-  const res = await fetch(`${apiBase.catalogo}/api/productos/${id}`);
+  let res = await fetch(`${getProductoBase()}/api/productos/${id}`);
+  if (!res.ok) {
+    res = await fetch(`${apiBase.catalogo}/api/productos/${id}`);
+  }
   if (!res.ok) throw new Error("Producto no encontrado");
   return res.json();
 };
 
 export const agregarProducto = async (producto) => {
-  const res = await fetch(`${apiBase.catalogo}/api/productos`, {
+  const res = await fetch(`${getProductoBase()}/api/productos`, {
     method: "POST",
     headers: jsonHeaders,
     body: JSON.stringify(producto),
@@ -25,7 +33,7 @@ export const agregarProducto = async (producto) => {
 };
 
 export const editarProducto = async (id, datosActualizados) => {
-  const res = await fetch(`${apiBase.catalogo}/api/productos/${id}`, {
+  const res = await fetch(`${getProductoBase()}/api/productos/${id}`, {
     method: "PUT",
     headers: jsonHeaders,
     body: JSON.stringify(datosActualizados),
@@ -35,7 +43,7 @@ export const editarProducto = async (id, datosActualizados) => {
 };
 
 export const eliminarProducto = async (id) => {
-  const res = await fetch(`${apiBase.catalogo}/api/productos/${id}`, {
+  const res = await fetch(`${getProductoBase()}/api/productos/${id}`, {
     method: "DELETE",
   });
   if (!res.ok) throw new Error("No se pudo eliminar el producto");

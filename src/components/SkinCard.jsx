@@ -1,16 +1,23 @@
-import { Card, Button } from 'react-bootstrap';
+﻿import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import apiBase from '../data/apiConfig';
 
-// Funcion de prueba no testeada, utiliza parametros para mostrar distintas skins, es reutilizable
-function SkinCard({ id, name, image, price, type, category }) {
+function resolveImage({ id, image, hasImageData }) {
+  if (hasImageData && id) return `${apiBase.catalogo}/api/productos/${id}/imagen`;
+  return image;
+}
+
+function SkinCard({ id, name, image, price, type, category, hasImageData }) {
+  const imgSrc = resolveImage({ id, image, hasImageData });
+
   return (
     <Card border='info' className="product-card" style={{ width: '18rem', margin: '10px' }}>
-      <Card.Img className="product-card-img" variant="top" src={image} />
+      {imgSrc && <Card.Img className="product-card-img" variant="top" src={imgSrc} alt={name} />}
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>
           Tipo: {type} <br />
-          Categoria: <img src={category} alt="Categoria" style={{ width: '20px', height: '20px' }} />
+          Categoria: {category}
         </Card.Text>
         <Button as={Link} to={`/skin/${id}`} variant="primary">Ver Detalles</Button>
         <Card.Footer>
