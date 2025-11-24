@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { ObtenerTodosUsers } from "../../../data/authDataService";
 import { obtenerProductos } from "../../../data/inventarioService";
-import Reporte from "../../admin/Reporte";
-
 
 function Estadistica() {
   const [usuarios, setUsuarios] = useState([]);
@@ -13,12 +11,10 @@ function Estadistica() {
     setProductos(obtenerProductos());
   }, []);
 
-  // Reportes de usuarios
   const totalUsuarios = usuarios.length;
   const admins = usuarios.filter(u => u.role === "admin").length;
   const clientes = usuarios.filter(u => u.role === "client").length;
 
-  // Reportes de productos
   const totalProductos = productos.length;
   const totalStock = productos.reduce((acc, p) => acc + p.stock, 0);
 
@@ -27,12 +23,11 @@ function Estadistica() {
       <h3 className="mb-3">Reportes Generales</h3>
 
       <div className="row g-3">
-        {/* Usuarios */}
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
               <h5 className="card-title mb-3">Usuarios</h5>
-              <hr  cclassName="my-4" style={{ backgroundColor: "white", height: "2px", border: "none" }}/>
+              <hr className="my-4" style={{ backgroundColor: "white", height: "2px", border: "none" }}/>
               <p className="card-text text-primary">Total de usuarios: {totalUsuarios}</p>
               <p className="card-text text-primary">Administradores: {admins}</p>
               <p className="card-text text-primary">Clientes: {clientes}</p>
@@ -41,11 +36,10 @@ function Estadistica() {
         </div>
 
          <div className="col-md-6">
-          {/* Productos */}
           <div className="card">
             <div className="card-body">
               <h5 className="card-title mb-3">Productos</h5>
-              <hr  cclassName="my-4" style={{ backgroundColor: "white", height: "2px", border: "none" }}/>
+              <hr className="my-4" style={{ backgroundColor: "white", height: "2px", border: "none" }}/>
               <p className="card-text text-primary">Total de productos: {totalProductos}</p>
               <p className="card-text text-primary">Total de stock: {totalStock}</p>
               <p className="card-text text-primary">Productos críticos (stock &lt; 5): {productos.filter(p => p.stock < 5).length}</p>
@@ -53,7 +47,6 @@ function Estadistica() {
           </div>          
         </div>       
 
-        {/* Ventas */}
       </div>
     </div>
   );

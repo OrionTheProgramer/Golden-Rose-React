@@ -1,33 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { Table } from 'react-bootstrap'
+﻿import React, { useState, useEffect } from "react";
+import { Table } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import { obtenerProductos, editarProducto, eliminarProducto  } from "../../../data/inventarioService";
 
 function MostrarProductos() {
     const [productos, setProductos] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setProductos(obtenerProductos());
     }, []);
 
-    // Editar stock del producto
     const handleEditarStock = (id) => {
-        const nuevoStock = prompt("Ingrese nuevo stock:")
+        const nuevoStock = prompt("Ingrese nuevo stock:");
         if (nuevoStock !== null) {
             editarProducto(id, { stock: Number(nuevoStock) });
             setProductos(obtenerProductos());
         }
     };
 
-    // Navegar al componente EditarProducto
     const handleEditarProducto = (id) => {
         navigate(`/admin/productos/editar/${id}`);
     };    
 
-    // Eliminar producto
     const handleEliminar = (id) => {
         if (window.confirm("¿Seguro que deseas eliminar este producto?")) {
-        eliminarProducto(id);
-        setProductos(obtenerProductos());
+            eliminarProducto(id);
+            setProductos(obtenerProductos());
         }
     };
     
@@ -38,7 +37,7 @@ function MostrarProductos() {
                     <h3>Inventario</h3>
                 </div>
                 <div className="m-1 p-2">
-                    <p class="text-muted">El inventario esta vacío.</p>
+                    <p className="text-muted">El inventario está vacío.</p>
                 </div>
             </div>
         );
@@ -54,7 +53,7 @@ function MostrarProductos() {
             className="m-1 p-2 overflow-x-auto"
         >
             <Table
-                class="table" 
+                className="table" 
                 bordered 
                 hover 
                 responsive
@@ -91,10 +90,7 @@ function MostrarProductos() {
                                 </button>
                                 <button
                                 className="btn btn-danger btn-sm"
-                                onClick={() => {
-                                    eliminarProducto(p.id);
-                                    setProductos(obtenerProductos()); // Recargar la lista
-                                }}
+                                onClick={() => handleEliminar(p.id)}
                                 >
                                 Eliminar
                                 </button>
@@ -110,4 +106,4 @@ function MostrarProductos() {
   )
 }
 
-export default MostrarProductos
+export default MostrarProductos;

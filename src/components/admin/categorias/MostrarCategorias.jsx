@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { obtenerCategorias, editarCategoria, eliminarCategoria } from "../../../data/categoriasService";
 
@@ -62,8 +62,6 @@ function MostrarCategorias() {
             </tbody>
         </Table>                          
     </div>      
-  
-    
   );
 }
 

@@ -29,9 +29,12 @@ export const verificarCredenciales = (email, password) => {
     );
 
     if (user) {
+        const token = "simulacion_token_" + user.role + "_" + Date.now();
         return {
-            token: "simulacion_token_" + user.role + "_" + Date.now(),
-            role: user.role
+            token,
+            role: user.role,
+            username: user.username,
+            email: user.email
         };
     }
     return null;

@@ -1,16 +1,15 @@
-import React from "react";
+﻿import React from "react";
 import logo from "../assets/icon.png";
 import { Link } from "react-router-dom";
-
+import { useAuth } from "../context/AuthContext";
 
 function SideBarAdmin() {
+  const { logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userName');
-
-    window.location.href = '/login'
-  }
+    logout();
+    window.location.href = '/login';
+  };
 
   return (
     <aside className="d-flex flex-column justify-content-between vh-100 border-end position-sticky top-0" style={{ width: "250px", backgroundColor: "#ff4655" }}>
@@ -53,31 +52,31 @@ function SideBarAdmin() {
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="admin/ordenes" className="nav-link text-dark ">
+                    <Link to="/admin/ordenes" className="nav-link text-dark ">
                     <i className="bi bi-bag me-2"></i> Ordenes
                     </Link>
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="admin/productos" className="nav-link text-dark">
+                    <Link to="/admin/productos" className="nav-link text-dark">
                     <i className="bi bi-box-seam me-2"></i> Productos
                     </Link>
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="admin/categorias" className="nav-link text-dark">
+                    <Link to="/admin/categorias" className="nav-link text-dark">
                     <i className="bi bi-clipboard-data me-2"></i> Categorías
                     </Link>
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="admin/usuarios" className="nav-link text-dark">
+                    <Link to="/admin/usuarios" className="nav-link text-dark">
                     <i className="bi bi-people me-2"></i> Usuarios
                     </Link>
                 </li>
 
                 <li className="nav-item mb-1">
-                    <Link to="admin/reportes" className="nav-link text-dark">
+                    <Link to="/admin/reportes" className="nav-link text-dark">
                     <i className="bi bi-person-lines-fill me-2"></i> Reporte
                     </Link>
                 </li>
@@ -100,17 +99,11 @@ function SideBarAdmin() {
                         </i> Tienda
                     </button>
                 </Link>
-                <Link className="text-decoration-none">                
-                    <button onClick={handleLogout} className="btn btn-outline-light w-100">
-                        <i className="bi bi-door-open me-2 ">
-                        </i> Cerrar Sesión
-                    </button>
-                </Link>                                          
+                <button onClick={handleLogout} className="btn btn-outline-light w-100">
+                    <i className="bi bi-door-open me-2 ">
+                    </i> Cerrar Sesión
+                </button>                                          
             </section>            
-
-
-
-
 
         </nav>
     </aside>

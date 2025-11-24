@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Facebook, Instagram, Twitter } from 'lucide-react';
 
 function Footer() {
@@ -7,7 +7,6 @@ function Footer() {
       <div className="container">
 
         <h4 className="fw-bold mb-3 text-warning">Golden Rose</h4>
-
 
         <ul className="list-inline mb-3">
           <li className="list-inline-item mx-3">
@@ -24,7 +23,6 @@ function Footer() {
           </li>
         </ul>
 
-        {/* Redes sociales */}
         <div className="d-flex justify-content-center mb-3">
           <a href="#" className="text-light mx-3 hover-text-warning">
             <Facebook size={20} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/icon.png';
 import "../css/style.css";
@@ -17,7 +17,7 @@ function Login() {
   
   // Hooks de navegación y autenticación
   const navigate = useNavigate();
-  const auth = useAuth(); // Usamos el hook del contexto
+  const auth = useAuth();
 
   // Estados para controlar el modal
   const [showModal, setShowModal] = useState(false);
@@ -38,22 +38,14 @@ function Login() {
     const authResult = verificarCredenciales(email, password);
 
     if(!authResult) {
-      // Reemplazamos el alert() por el modal
       handleShowModal('Error de Inicio de Sesión', 'Correo o Contraseña inválidos.');
       return;      
     }
 
-    const { token, role } = authResult;
+    auth.login(authResult);
 
-    // Usamos la función login() del contexto
-    // Esto actualizará el estado global Y el localStorage
-    auth.login(role, token);
-
-    // Navegamos al área correspondiente
-    if (role === 'admin'){
+    if (authResult.role === 'admin'){
       navigate('/admin');
-    } else if (role === 'client') {
-      navigate('/api/home');
     } else {
       navigate('/api/home'); 
     }
@@ -91,7 +83,6 @@ function Login() {
               {/* Tarjeta con fondo oscuro (sin 'bg-light') */}
               <div className="card shadow-sm">
                 <div className="card-body">
-                  {/* Título con 'card-title' para que se vea blanco */}
                   <h3 className="card-title text-center fs-5 py-2 mb-4">
                     Inicio de sesión
                   </h3>
@@ -137,9 +128,7 @@ function Login() {
                     </div>
                   </div>
 
-                  {/* Botón */}
                   <div className="d-grid">
-                    {/* Botón dorado (sin style en línea) */}
                     <button
                       type="submit"
                       className="btn btn-golden text-uppercase"
@@ -150,7 +139,6 @@ function Login() {
                 </div>
               </div>
 
-              {/* Enlaces secundarios (sin 'border-top' ni 'text-primary') */}
               <div className="col-12 text-center py-4 mt-5">
                 <p>
                   <a href="#forgot-password">

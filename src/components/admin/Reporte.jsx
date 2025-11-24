@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { obtenerProductos } from "../../data/inventarioService";
 
 function Reporte() {
@@ -17,11 +17,11 @@ function Reporte() {
             <h3>Reportes</h3>
         </div>
         <div className="m-2 p-2">
-            <p class="text-secondary">Total de productos: {totalProductos}</p>
-            <p class="text-secondary">Total de Stock: {totalStock}</p>
+            <p className="text-secondary">Total de productos: {totalProductos}</p>
+            <p className="text-secondary">Total de Stock: {totalStock}</p>
         </div>
     </div>
-  )
+  );
 }
 
 export default Reporte;

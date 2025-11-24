@@ -37,11 +37,11 @@ export const editarProducto = (id, datosActualizados) => {
 
 // Actualizar un producto
 export const actualizarProducto = (productoActualizado) => {
-  const productos = JSON.parse(localStorage.getItem("productos")) || [];
+  const productos = cargarProductos();
   const nuevos = productos.map(p =>
     p.id === productoActualizado.id ? productoActualizado : p
   );
-  localStorage.setItem("productos", JSON.stringify(nuevos));
+  guardarProductos(nuevos);
 };
 
 // Mostrar productos
@@ -51,7 +51,7 @@ export const obtenerProductos = () => {
 
 // Obtener un producto por id
 export const obtenerProductoPorId = (id) => {
-  const productos = JSON.parse(localStorage.getItem("productos")) || [];
+  const productos = cargarProductos();
   return productos.find(p => p.id === id);
 };
 
