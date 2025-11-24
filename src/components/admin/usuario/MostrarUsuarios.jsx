@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { ObtenerTodosUsers } from "../../../data/authDataService";
 
 function MostrarUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
-    setUsuarios(ObtenerTodosUsers());
+    const load = async () => {
+      const list = await ObtenerTodosUsers();
+      setUsuarios(list);
+    };
+    load();
   }, []);
 
   return (

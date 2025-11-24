@@ -1,78 +1,47 @@
-// src/data/authDataService.js
+﻿import apiBase from "./apiConfig";
 
-const CLAVE_ALMACENAMIENTO = 'goldenRose_users';
+const jsonHeaders = { "Content-Type": "application/json" };
 
-let USERS = [
-    {username:"admin", email: "admin@profesor.duoc.cl", password: "admin0123", role: "admin"},
-    {username:"cliente1", email: "cliente1@gmail.com", password: "client11", role: "client"},
-    {username:"cliente2", email: "cliente2@duoc.cl", password: "client22", role: "client"},
-];
-
-// Ayuda a cargar y guardar en el localStorage
-const cargarUsers = () => {
-    const storedUsers = localStorage.getItem(CLAVE_ALMACENAMIENTO);
-    
-    return storedUsers ? JSON.parse(storedUsers) : [...USERS];
-}
-
-const guardarUsers = (actualUsers) => {
-    localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(actualUsers));
-}
-
-let users = cargarUsers();
-
-
-// Verifica las credenciales
-export const verificarCredenciales = (email, password) => {
-    const user = users.find(
-        u => u.email === email && u.password === password
-    );
-
-    if (user) {
-        const token = "simulacion_token_" + user.role + "_" + Date.now();
-        return {
-            token,
-            role: user.role,
-            username: user.username,
-            email: user.email
-        };
-    }
-    return null;
-}
-
-// Registro de usuario con validaciones
-export const registroUser = (username, email, password) => {
-    
-    const dominio = email.split('@')[1];
-    let role = 'client';
-
-    if (dominio === 'profesor.duoc.cl'){
-        role = 'admin'
-    }
-
-    if (users.some(u => u.email === email)) {
-        throw new Error("El correo ya está registrado.");
-    }
-
-    const nuevoUser = { username, email, password, role};
-    
-    users.push(nuevoUser);
-    
-
-    guardarUsers(users); 
-    
-    console.log("Nuevo usuario registrado: ", nuevoUser);
-    return nuevoUser;
+// Verifica las credenciales contra el backend
+export const verificarCredenciales = async (email, password) => {
+    const res = await fetch(`${apiBase.auth}/api/auth/login`, {
+        method: "POST",
+        headers: jsonHeaders,
+        body: JSON.stringify({ email, password })
+    });
+    if (!res.ok) return null;
+    return res.json();
 };
 
-// ActualizarUsuario
-export const actualizarUsuario = (usuarioActualizado) => {
-  users = users.map(u => u.email === usuarioActualizado.email ? usuarioActualizado : u);
-  guardarUsers(users);
+// Registro de usuario en el backend
+export const registroUser = async (username, email, password) => {
+    const res = await fetch(`${apiBase.auth}/api/auth/register`, {
+        method: "POST",
+        headers: jsonHeaders,
+        body: JSON.stringify({ username, email, password })
+    });
+    if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg || "No se pudo registrar");
+    }
+    return res.json();
 };
 
+export const actualizarUsuario = async (usuarioActualizado) => {
+  const res = await fetch(`${apiBase.usuarios}/api/usuarios/${usuarioActualizado.id}`, {
+    method: "PUT",
+    headers: jsonHeaders,
+    body: JSON.stringify(usuarioActualizado),
+  });
+  if (!res.ok) {
+    const msg = await res.text();
+    throw new Error(msg || "No se pudo actualizar el usuario");
+  }
+  return res.json();
+};
 
-// Devuelve todos los usuarios
-export const ObtenerTodosUsers = () => {
-    return [...users];
+export const ObtenerTodosUsers = async () => {
+    const res = await fetch(`${apiBase.usuarios}/api/usuarios`);
+    if (!res.ok) return [];
+    return res.json();
 };

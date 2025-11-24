@@ -1,21 +1,36 @@
 ﻿import React, { useState, useEffect } from "react";
-import { Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom";
 import { obtenerProductos, editarProducto, eliminarProducto  } from "../../../data/inventarioService";
 
 function MostrarProductos() {
     const [productos, setProductos] = useState([]);
     const navigate = useNavigate();
+    const [error, setError] = useState(null);
+
+    const load = async () => {
+        try {
+            const data = await obtenerProductos();
+            setProductos(data);
+            setError(null);
+        } catch (err) {
+            setError("No se pudieron cargar productos");
+        }
+    };
 
     useEffect(() => {
-        setProductos(obtenerProductos());
+        load();
     }, []);
 
-    const handleEditarStock = (id) => {
+    const handleEditarStock = async (id) => {
         const nuevoStock = prompt("Ingrese nuevo stock:");
         if (nuevoStock !== null) {
-            editarProducto(id, { stock: Number(nuevoStock) });
-            setProductos(obtenerProductos());
+            try {
+                await editarProducto(id, { stock: Number(nuevoStock) });
+                load();
+            } catch (err) {
+                alert("No se pudo actualizar el stock");
+            }
         }
     };
 
@@ -23,10 +38,14 @@ function MostrarProductos() {
         navigate(`/admin/productos/editar/${id}`);
     };    
 
-    const handleEliminar = (id) => {
+    const handleEliminar = async (id) => {
         if (window.confirm("¿Seguro que deseas eliminar este producto?")) {
-            eliminarProducto(id);
-            setProductos(obtenerProductos());
+            try {
+                await eliminarProducto(id);
+                load();
+            } catch (err) {
+                alert("No se pudo eliminar");
+            }
         }
     };
     
@@ -38,6 +57,7 @@ function MostrarProductos() {
                 </div>
                 <div className="m-1 p-2">
                     <p className="text-muted">El inventario está vacío.</p>
+                    {error && <p className="text-danger">{error}</p>}
                 </div>
             </div>
         );
@@ -47,6 +67,7 @@ function MostrarProductos() {
     <div className="p-4 bg-white border rounded text-dark">
         <div>
             <h3>Inventario</h3>
+            {error && <p className="text-danger">{error}</p>}
         </div>
         
         <div 
@@ -62,8 +83,6 @@ function MostrarProductos() {
                     <tr>
                         <th className="border px-4 py-2 text-left">Nombre</th>
                         <th className="border px-4 py-2 text-left">Precio</th>
-                        <th className="border px-4 py-2 text-left">Stock</th>
-                        <th className="border px-4 py-2 text-left">Categoría</th>
                         <th className="border px-4 py-2 text-left">Acciones</th>
                     </tr>
                 </thead>
@@ -72,8 +91,6 @@ function MostrarProductos() {
                         <tr key={p.id} className="hover:bg-gray-50">
                             <td className="border px-4 py-2">{p.nombre}</td>
                             <td className="border px-4 py-2">$ {p.precio}</td>
-                            <td className="border px-4 py-2">{p.stock}</td>
-                            <td className="border px-4 py-2">{p.categoria}</td>
                             <td className="border px-4 py-2">
                             <div className="d-flex gap-2 justify-content-center">
                                 <button

@@ -1,23 +1,26 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { agregarProducto } from "../../../data/inventarioService";
 import { useNavigate } from "react-router-dom";
 
 function NuevoProducto() {
     const [nombre, setNombre] = useState("");
     const [precio, setPrecio] = useState("");
-    const [stock, setStock] = useState("");
-    const [categoria, setCategoria] = useState("");
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        agregarProducto({ nombre, precio: Number(precio), stock: Number(stock), categoria });
-        setNombre(""); setPrecio(""); setStock(""); setCategoria("");
-        alert("Producto agregado!");
-        
-    };
+    const [categoriaId, setCategoriaId] = useState("");
+    const [imagenUrl, setImagenUrl] = useState("");
+    const [descripcion, setDescripcion] = useState("");
 
     const navigate = useNavigate();
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await agregarProducto({ nombre, precio: Number(precio), categoriaId: Number(categoriaId), imagenUrl, descripcion });
+            alert("Producto agregado!");
+            setNombre(""); setPrecio(""); setCategoriaId(""); setImagenUrl(""); setDescripcion("");
+        } catch (err) {
+            alert("No se pudo agregar el producto: " + err.message);
+        }
+    };
 
   return (
     <>
@@ -58,26 +61,31 @@ function NuevoProducto() {
             </div>
 
             <div className="col">
-                <label htmlFor="" className="form-label">Stock</label>
+                <label htmlFor="" className="form-label">Categoría Id</label>
                 <input 
                     className="form-control"
-                    type="number" 
-                    placeholder="Stock" 
-                    value={stock} 
-                    onChange={e => setStock(e.target.value)} 
+                    placeholder="Categoría" 
+                    value={categoriaId} 
+                    onChange={e => setCategoriaId(e.target.value)} 
                     required 
                 />
             </div>
 
             <div className="col">
-                <label htmlFor="" className="form-label">Categoria</label>
+                <label className="form-label">Imagen URL</label>
                 <input 
                     className="form-control"
-                    placeholder="Categoría" 
-                    value={categoria} 
-                    onChange={e => setCategoria(e.target.value)} 
-                    required 
+                    placeholder="https://..." 
+                    value={imagenUrl} 
+                    onChange={e => setImagenUrl(e.target.value)} 
                 />
+            </div>
+        </div>
+
+        <div className="row g-3 m-1">
+            <div className="col">
+                <label className="form-label">Descripción</label>
+                <textarea className="form-control" value={descripcion} onChange={e => setDescripcion(e.target.value)} />
             </div>
         </div>
         
@@ -90,12 +98,12 @@ function NuevoProducto() {
             <div className="">
                 <button 
                     className="btn btn-danger "
-                    type="submit"
+                    type="button"
                     onClick={() => navigate("/admin/productos")}
 
                 >Volver
                 </button>              
-            </div>             
+            </div>              
            
         </div>
    

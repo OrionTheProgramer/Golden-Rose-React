@@ -1,33 +1,43 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { obtenerProductos, actualizarProducto } from "../../../data/inventarioService";
+import { obtenerProductoPorId, editarProducto } from "../../../data/inventarioService";
 
 function EditarProducto() {
   const { id } = useParams();
   const [producto, setProducto] = useState(null);
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
-  const [stock, setStock] = useState("");
-  const [categoria, setCategoria] = useState("");
+  const [categoriaId, setCategoriaId] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [imagenUrl, setImagenUrl] = useState("");
 
   useEffect(() => {
-    const productos = obtenerProductos();
-    const encontrado = productos.find(p => p.id === Number(id));
-    if (encontrado) {
-      setProducto(encontrado);
-      setNombre(encontrado.nombre);
-      setPrecio(encontrado.precio);
-      setStock(encontrado.stock);
-      setCategoria(encontrado.categoria);
-    }
+    const load = async () => {
+      try {
+        const encontrado = await obtenerProductoPorId(id);
+        setProducto(encontrado);
+        setNombre(encontrado.nombre);
+        setPrecio(encontrado.precio);
+        setCategoriaId(encontrado.categoriaId || "");
+        setDescripcion(encontrado.descripcion || "");
+        setImagenUrl(encontrado.imagenUrl || "");
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    load();
   }, [id]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!producto) return alert("No se encontró el producto.");
 
-    actualizarProducto({ ...producto, nombre, precio: Number(precio), stock: Number(stock), categoria });
-    alert("Producto actualizado correctamente.");
+    try {
+      await editarProducto(id, { nombre, precio: Number(precio), categoriaId: Number(categoriaId), descripcion, imagenUrl });
+      alert("Producto actualizado correctamente.");
+    } catch (err) {
+      alert("No se pudo actualizar: " + err.message);
+    }
   };
 
   if (!producto) return <p className="text-center mt-5">Cargando producto...</p>;
@@ -58,23 +68,30 @@ function EditarProducto() {
         </div>
 
         <div className="col-md-6">
-          <label className="form-label">Stock</label>
+          <label className="form-label">Categoría</label>
           <input
-            type="number"
             className="form-control"
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
+            value={categoriaId}
+            onChange={(e) => setCategoriaId(e.target.value)}
             required
           />
         </div>
 
         <div className="col-md-6">
-          <label className="form-label">Categoría</label>
+          <label className="form-label">Imagen URL</label>
           <input
             className="form-control"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            required
+            value={imagenUrl}
+            onChange={(e) => setImagenUrl(e.target.value)}
+          />
+        </div>
+
+        <div className="col-12">
+          <label className="form-label">Descripción</label>
+          <textarea
+            className="form-control"
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
           />
         </div>
 

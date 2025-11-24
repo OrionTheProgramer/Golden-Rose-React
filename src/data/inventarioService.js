@@ -1,68 +1,50 @@
-const CLAVE_PRODUCTOS = "goldenRose_products";
+﻿import apiBase from "./apiConfig";
 
-// Cargar productos desde localStorage o datos iniciales
-export const cargarProductos = () => {
-  const stored = localStorage.getItem(CLAVE_PRODUCTOS);
-  if (stored) return JSON.parse(stored);
+const jsonHeaders = { "Content-Type": "application/json" };
 
-  const productosIniciales = []; // o tus skins iniciales
-  localStorage.setItem(CLAVE_PRODUCTOS, JSON.stringify(productosIniciales));
-  return productosIniciales;
+export const obtenerProductos = async () => {
+  const res = await fetch(`${apiBase.catalogo}/api/productos`);
+  if (!res.ok) throw new Error("No se pudieron obtener productos");
+  return res.json();
 };
 
-export const guardarProductos = (productos) => {
-  localStorage.setItem(CLAVE_PRODUCTOS, JSON.stringify(productos));
+export const obtenerProductoPorId = async (id) => {
+  const res = await fetch(`${apiBase.catalogo}/api/productos/${id}`);
+  if (!res.ok) throw new Error("Producto no encontrado");
+  return res.json();
 };
 
-// Nuevo producto
-export const agregarProducto = (producto) => {
-  const productos = cargarProductos();
-  producto.id = Date.now(); // id único simple
-  productos.push(producto);
-  guardarProductos(productos);
-  return producto;
+export const agregarProducto = async (producto) => {
+  const res = await fetch(`${apiBase.catalogo}/api/productos`, {
+    method: "POST",
+    headers: jsonHeaders,
+    body: JSON.stringify(producto),
+  });
+  if (!res.ok) throw new Error("No se pudo crear el producto");
+  return res.json();
 };
 
-// Editar producto
-export const editarProducto = (id, datosActualizados) => {
-  const productos = cargarProductos();
-  const index = productos.findIndex(p => p.id === id);
-  if (index !== -1) {
-    productos[index] = { ...productos[index], ...datosActualizados };
-    guardarProductos(productos);
-    return productos[index];
-  }
-  return null;
+export const editarProducto = async (id, datosActualizados) => {
+  const res = await fetch(`${apiBase.catalogo}/api/productos/${id}`, {
+    method: "PUT",
+    headers: jsonHeaders,
+    body: JSON.stringify(datosActualizados),
+  });
+  if (!res.ok) throw new Error("No se pudo editar el producto");
+  return res.json();
 };
 
-// Actualizar un producto
-export const actualizarProducto = (productoActualizado) => {
-  const productos = cargarProductos();
-  const nuevos = productos.map(p =>
-    p.id === productoActualizado.id ? productoActualizado : p
-  );
-  guardarProductos(nuevos);
+export const eliminarProducto = async (id) => {
+  const res = await fetch(`${apiBase.catalogo}/api/productos/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) throw new Error("No se pudo eliminar el producto");
+  return true;
 };
 
-// Mostrar productos
-export const obtenerProductos = () => {
-  return cargarProductos();
-};
-
-// Obtener un producto por id
-export const obtenerProductoPorId = (id) => {
-  const productos = cargarProductos();
-  return productos.find(p => p.id === id);
-};
-
-export const eliminarProducto = (id) => {
-  const productos = cargarProductos(); 
-  const nuevosProductos = productos.filter(p => p.id !== id); 
-  guardarProductos(nuevosProductos); 
-  return nuevosProductos; 
-};
-
-// Productos críticos (poco stock)
-export const productosCriticos = (umbral = 5) => {
-  return cargarProductos().filter(p => p.stock <= umbral);
+// Productos críticos vía microservicio de inventario
+export const productosCriticos = async () => {
+  const res = await fetch(`${apiBase.inventario}/api/inventario/criticos`);
+  if (!res.ok) throw new Error("No se pudieron obtener productos críticos");
+  return res.json();
 };

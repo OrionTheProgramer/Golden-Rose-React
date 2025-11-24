@@ -5,22 +5,31 @@ import { obtenerCategorias, editarCategoria, eliminarCategoria } from "../../../
 function MostrarCategorias() {
   const [categorias, setCategorias] = useState([]);
 
-  useEffect(() => {
-    setCategorias(obtenerCategorias());
-  }, []);
-
-  const handleEditar = (id) => {
-    const nuevoNombre = prompt("Nuevo nombre de la categoría:");
-    if (nuevoNombre) {
-      editarCategoria(id, nuevoNombre);
-      setCategorias(obtenerCategorias());
+  const load = async () => {
+    try {
+      const data = await obtenerCategorias();
+      setCategorias(data);
+    } catch (err) {
+      setCategorias([]);
     }
   };
 
-  const handleEliminar = (id) => {
+  useEffect(() => {
+    load();
+  }, []);
+
+  const handleEditar = async (id) => {
+    const nuevoNombre = prompt("Nuevo nombre de la categoría:");
+    if (nuevoNombre) {
+      await editarCategoria(id, nuevoNombre);
+      load();
+    }
+  };
+
+  const handleEliminar = async (id) => {
     if (window.confirm("¿Eliminar esta categoría?")) {
-      eliminarCategoria(id);
-      setCategorias(obtenerCategorias());
+      await eliminarCategoria(id);
+      load();
     }
   };
 

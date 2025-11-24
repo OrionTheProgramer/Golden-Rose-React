@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { registroUser } from "../../../data/authDataService";
 
 function NuevoUsuario() {
@@ -6,10 +6,10 @@ function NuevoUsuario() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      registroUser(username, email, password);
+      await registroUser(username, email, password);
       alert("Usuario registrado!");
       setUsername(""); setEmail(""); setPassword("");
     } catch (error) {

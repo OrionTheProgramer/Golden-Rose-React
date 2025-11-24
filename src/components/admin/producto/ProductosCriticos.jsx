@@ -6,12 +6,20 @@ function ProductosCriticos() {
     const [criticos, setCriticos] = useState([]);
 
     useEffect(() => {
-        setCriticos(productosCriticos());
+        const load = async () => {
+            try {
+                const list = await productosCriticos();
+                setCriticos(list);
+            } catch (err) {
+                setCriticos([]);
+            }
+        };
+        load();
     }, []);   
 
-  const estadoStock = (stock) => {
-    if (stock <= 3) return { label: "Stock crítico", color: "red", icon: "⚠" };
-    if (stock <= 5) return { label: "Stock bajo", color: "orange", icon: "⚠" };
+  const estadoStock = (stock, umbral) => {
+    if (stock <= umbral) return { label: "Stock crítico", color: "red", icon: "⚠" };
+    if (stock <= umbral + 2) return { label: "Stock bajo", color: "orange", icon: "⚠" };
     return { label: "Stock suficiente", color: "green", icon: "✔" };
   };    
     
@@ -38,16 +46,18 @@ function ProductosCriticos() {
                     <tr>
                     <th>Nombre</th>
                     <th>Stock</th>
+                    <th>Umbral</th>
                     <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
                 {criticos.map((p) => {
-                    const estado = estadoStock(p.stock);
+                    const estado = estadoStock(p.stock, p.umbralCritico || 0);
                     return (
                         <tr key={p.id}>
-                        <td>{p.nombre}</td>
+                        <td>{p.productName}</td>
                         <td>{p.stock}</td>
+                        <td>{p.umbralCritico}</td>
                         <td style={{ color: estado.color }}>
                             {estado.icon} {estado.label}
                         </td>

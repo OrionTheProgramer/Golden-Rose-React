@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { ObtenerTodosUsers, actualizarUsuario } from "../../../data/authDataService";
 
 function EditarUsuario() {
@@ -9,7 +9,11 @@ function EditarUsuario() {
   const [role, setRole] = useState("");
 
   useEffect(() => {
-    setUsuarios(ObtenerTodosUsers());
+    const load = async () => {
+      const list = await ObtenerTodosUsers();
+      setUsuarios(list);
+    };
+    load();
   }, []);
 
   const handleSeleccion = (e) => {
@@ -26,12 +30,16 @@ function EditarUsuario() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!usuarioSeleccionado) return alert("Selecciona un usuario.");
 
-    actualizarUsuario({ ...usuarioSeleccionado, username, email, role });
-    alert("Usuario actualizado!");
+    try {
+      await actualizarUsuario({ ...usuarioSeleccionado, username, email, role });
+      alert("Usuario actualizado!");
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   return (
@@ -40,7 +48,7 @@ function EditarUsuario() {
 
       <div className="mb-3">
         <label className="form-label">Selecciona un usuario</label>
-        <select className="form-select" onChange={handleSeleccion}>
+        <select className="form-select" onChange={handleSeleccion} value={usuarioSeleccionado?.email || ""}>
           <option value="">-- Selecciona --</option>
           {usuarios.map(u => (
             <option key={u.email} value={u.email}>{u.username}</option>

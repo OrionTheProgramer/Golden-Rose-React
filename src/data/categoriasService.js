@@ -1,49 +1,40 @@
-const CLAVE_CATEGORIAS = "goldenRose_categorias";
+﻿import apiBase from "./apiConfig";
 
-// Cargar categorías desde localStorage o crear lista vacía
-export const cargarCategorias = () => {
-  const stored = localStorage.getItem(CLAVE_CATEGORIAS);
-  if (stored) return JSON.parse(stored);
+const jsonHeaders = { "Content-Type": "application/json" };
 
-  const categoriasIniciales = []; 
-  localStorage.setItem(CLAVE_CATEGORIAS, JSON.stringify(categoriasIniciales));
-  return categoriasIniciales;
+export const cargarCategorias = async () => {
+  const res = await fetch(`${apiBase.catalogo}/api/categorias`);
+  if (!res.ok) throw new Error("No se pudieron cargar las categorías");
+  return res.json();
 };
 
-// Guardar categorías
-export const guardarCategorias = (categorias) => {
-  localStorage.setItem(CLAVE_CATEGORIAS, JSON.stringify(categorias));
+export const guardarCategorias = async (categorias) => categorias;
+
+export const agregarCategoria = async (nombre) => {
+  const res = await fetch(`${apiBase.catalogo}/api/categorias`, {
+    method: "POST",
+    headers: jsonHeaders,
+    body: JSON.stringify({ nombre }),
+  });
+  if (!res.ok) throw new Error("No se pudo crear la categoría");
+  return res.json();
 };
 
-// Agregar nueva categoría
-export const agregarCategoria = (nombre) => {
-  const categorias = cargarCategorias();
-  const nueva = { id: Date.now(), nombre };
-  categorias.push(nueva);
-  guardarCategorias(categorias);
-  return nueva;
+export const editarCategoria = async (id, nuevoNombre) => {
+  const res = await fetch(`${apiBase.catalogo}/api/categorias/${id}`, {
+    method: "PUT",
+    headers: jsonHeaders,
+    body: JSON.stringify({ nombre: nuevoNombre }),
+  });
+  if (!res.ok) throw new Error("No se pudo editar la categoría");
+  return res.json();
 };
 
-// Editar categoría
-export const editarCategoria = (id, nuevoNombre) => {
-  const categorias = cargarCategorias();
-  const index = categorias.findIndex(c => c.id === id);
-  if (index !== -1) {
-    categorias[index].nombre = nuevoNombre;
-    guardarCategorias(categorias);
-    return categorias[index];
-  }
-  return null;
+export const eliminarCategoria = async (id) => {
+  const res = await fetch(`${apiBase.catalogo}/api/categorias/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) throw new Error("No se pudo eliminar la categoría");
 };
 
-// Eliminar categoría
-export const eliminarCategoria = (id) => {
-  let categorias = cargarCategorias();
-  categorias = categorias.filter(c => c.id !== id);
-  guardarCategorias(categorias);
-};
-
-// Obtener todas las categorías
-export const obtenerCategorias = () => {
-  return cargarCategorias();
-};
+export const obtenerCategorias = async () => cargarCategorias();
