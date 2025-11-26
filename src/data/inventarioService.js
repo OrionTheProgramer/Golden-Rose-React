@@ -43,7 +43,11 @@ export const obtenerProductos = async () => {
     res = await fetch(`${apiBase.catalogo}/api/productos`);
   }
   if (!res.ok) throw new Error("No se pudieron obtener productos");
-  return res.json();
+  const data = await res.json();
+  if (Array.isArray(data)) return data;
+  if (data?._embedded?.productResponseList) return data._embedded.productResponseList;
+  if (data?._embedded?.productos) return data._embedded.productos;
+  return [];
 };
 
 export const obtenerProductoPorId = async (id) => {
