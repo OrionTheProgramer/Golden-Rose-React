@@ -20,12 +20,12 @@ function NuevoProducto() {
       await agregarProducto({
         nombre,
         precio: Number(precio),
-        categoria,
-        rareza,
-        imagenUrl,
-        imagenFile,
+        categoria: categoria || undefined,
+        rareza: rareza || undefined,
+        imagenUrl: imagenUrl || undefined,
+        imagenFile: imagenFile || undefined,
         descripcion,
-        referenciaExterna,
+        referenciaExterna: referenciaExterna || undefined,
       });
       alert("Producto agregado!");
       setNombre("");
@@ -50,6 +50,9 @@ function NuevoProducto() {
       <form className="p-4 bg-white border rounded text-dark" onSubmit={handleSubmit}>
         <div className="m-1">
           <h3>Crear un producto</h3>
+          <p className="text-muted mb-0">
+            Solo ingresa nombre, precio y (opcional) descripción. La rareza e imagen se autocompletarán si no las envías.
+          </p>
         </div>
         <div className="row g-3 m-1">
           <div className="col">
@@ -77,24 +80,25 @@ function NuevoProducto() {
           </div>
 
           <div className="col">
-            <label className="form-label">Categoría</label>
+            <label className="form-label">Categoría (opcional)</label>
             <input
               className="form-control"
               placeholder="Rifle / Cuchillo / Colección"
               value={categoria}
               onChange={(e) => setCategoria(e.target.value)}
-              required
             />
           </div>
 
           <div className="col">
-            <label className="form-label">Rareza</label>
+            <label className="form-label">Rareza (opcional)</label>
             <input
               className="form-control"
               placeholder="Exclusive / Deluxe / Premium"
               value={rareza}
               onChange={(e) => setRareza(e.target.value)}
+              aria-describedby="rarezaHelp"
             />
+            <small id="rarezaHelp" className="text-muted">Déjalo vacío para autocompletar.</small>
           </div>
 
           <div className="col">
@@ -128,15 +132,15 @@ function NuevoProducto() {
             />
           </div>
           <div className="col">
-            <label className="form-label">UUID Valorant (skinlevel)</label>
+            <label className="form-label">UUID Valorant (skinlevel, opcional)</label>
             <input
               className="form-control"
-              placeholder="Opcional: bc8d1f88-4d76-8f70-8e3c-5dc63afcdd19"
+              placeholder="bc8d1f88-4d76-8f70-8e3c-5dc63afcdd19"
               value={referenciaExterna}
               onChange={(e) => setReferenciaExterna(e.target.value)}
             />
             <small className="text-muted">
-              Se usará para autocompletar nombre/icono/rareza desde valorant-api.com.
+              Úsalo para autocompletar con coincidencia exacta desde valorant-api.com.
             </small>
           </div>
         </div>

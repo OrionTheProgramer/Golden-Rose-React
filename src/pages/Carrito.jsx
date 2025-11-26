@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "../css/style.css";
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, ListGroup, Form, Image, InputGroup, Alert } from 'react-bootstrap'; // Make sure all necessary components are imported
 
@@ -10,6 +11,7 @@ function Carrito() {
   }, []);
 
   const { cartItems, removeFromCart, updateQuantity, totalItems, clearCart } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -23,6 +25,8 @@ function Carrito() {
     const orderDetails = {
       orderId: `GR-${Date.now().toString().slice(-6)}`,
       date: new Date().toLocaleDateString('es-CL'),
+      buyerName: user?.username || user?.email || 'Invitado',
+      buyerEmail: user?.email || 'No registrado',
       items: cartItems.map(item => ({
         id: item.id,
         name: item.name,

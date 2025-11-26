@@ -4,21 +4,20 @@ import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Table, Alert } from 'react-bootstrap';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import logo from '../assets/icon.png'; 
+import logo from '../assets/icon.png';
 
 function ReceiptPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const receiptRef = useRef(null); 
+  const receiptRef = useRef(null);
 
   const orderData = location.state?.orderData;
 
   useEffect(() => {
     document.title = "Boleta - Golden Rose";
-    // Si no hay datos, redirige al inicio después de un momento
     if (!orderData) {
       console.error("No se encontraron datos de la orden.");
-      setTimeout(() => navigate('/'), 3000); // Redirige al home después de 3s
+      setTimeout(() => navigate('/'), 3000);
     }
   }, [orderData, navigate]);
 
@@ -26,7 +25,7 @@ function ReceiptPage() {
     const input = receiptRef.current;
     if (!input) return;
 
-    html2canvas(input, { scale: 2 }) // Aumenta la escala para mejor calidad
+    html2canvas(input, { scale: 2 })
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
@@ -51,18 +50,26 @@ function ReceiptPage() {
     );
   }
 
-  const { orderId, date, items, subtotal, shipping, commission, total } = orderData;
+  const {
+    orderId,
+    date,
+    items,
+    subtotal,
+    shipping,
+    commission,
+    total,
+    buyerName,
+    buyerEmail
+  } = orderData;
 
   return (
     <Container className="my-5">
       <Row className="justify-content-center">
         <Col md={8} lg={7}>
-          {/* Botón Volver al Inicio */}
           <Link to="/api/home" className="btn btn-outline-secondary mb-3">
             <i className="bi bi-arrow-left me-2"></i>Volver al Inicio
           </Link>
 
-          {/* Contenedor de la Boleta para PDF */}
           <div ref={receiptRef} className="p-4" style={{ backgroundColor: '#fff', color: '#000' }}>
             <Card className="border-dark shadow-sm">
               <Card.Header className="bg-dark text-white p-4">
@@ -81,10 +88,18 @@ function ReceiptPage() {
                 <h3 className="text-center mb-4 border-bottom pb-2 text-primary">Boleta Electrónica</h3>
                 <Row className="mb-3">
                   <Col>
-                    <strong>Nº Orden:</strong> {orderId || 'N/A'}
+                    <strong>N° Orden:</strong> {orderId || 'N/A'}
                   </Col>
                   <Col className="text-end text-primary">
                     <strong>Fecha:</strong> {date || new Date().toLocaleDateString('es-CL')}
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col>
+                    <strong>Comprador:</strong> {buyerName || 'No indicado'}
+                  </Col>
+                  <Col className="text-end">
+                    <strong>Email:</strong> {buyerEmail || 'No indicado'}
                   </Col>
                 </Row>
                 <hr />
@@ -141,7 +156,6 @@ function ReceiptPage() {
             </Card>
           </div>
 
-          {/* Botón de Descarga */}
           <div className="text-center mt-4">
             <Button variant="success" onClick={handleDownloadPdf}>
               <i className="bi bi-download me-2"></i>Descargar Boleta (PDF)

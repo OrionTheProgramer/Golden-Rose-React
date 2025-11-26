@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 
 function PerfilAdmin() {
@@ -21,9 +21,9 @@ function PerfilAdmin() {
   return (
     <div className="perfil-admin">
       <h2>Perfil de {perfil.username || "Administrador"}</h2>
-      <p><strong>Email:</strong> {perfil.email}</p>
-      <p><strong>Rol:</strong> {perfil.role}</p>
-      <p><strong>Teléfono:</strong> {perfil.telefono || "No registrado"}</p>
+      <p>Email: {perfil.email}</p>
+      <p>Rol: {perfil.role}</p>
+      <p>Teléfono: {perfil.telefono || "No registrado"}</p>
     </div>
   );
 }

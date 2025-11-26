@@ -1,5 +1,5 @@
-﻿import { useState, useEffect } from "react";
-import { Container, Row, Col, Form, InputGroup, Spinner, Alert } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Container, Row, Col, Form, InputGroup, Spinner } from "react-bootstrap";
 import SkinCard from "../components/SkinCard";
 import skinsDataLocal from "../data/data.json";
 import { obtenerProductosApi } from "../data/catalogService";
@@ -9,7 +9,6 @@ function MarketplacePage() {
   const [selectedType, setSelectedType] = useState("all");
   const [skinsData, setSkinsData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const load = async () => {
@@ -19,7 +18,6 @@ function MarketplacePage() {
       } catch (err) {
         console.error("Fallo carga API, usando datos locales", err);
         setSkinsData(skinsDataLocal);
-        setError("Mostrando datos locales");
       } finally {
         setLoading(false);
       }
@@ -47,7 +45,6 @@ function MarketplacePage() {
           <span>Cargando catálogo...</span>
         </div>
       )}
-      {error && <Alert variant="warning" className="mt-2">{error}</Alert>}
 
       <Row className="mb-4 p-3 card" style={{ backgroundColor: "var(--color-surface)" }}>
         <Col md={7} className="mb-3 mb-md-0">
@@ -90,6 +87,7 @@ function MarketplacePage() {
                 image={skin.image || skin.imagenUrl}
                 type={skin.Type || skin.type || skin.categoriaNombre}
                 category={skin.Category || skin.categoriaNombre}
+                rarezaIconUrl={skin.rarezaIconUrl}
               />
             </Col>
           ))

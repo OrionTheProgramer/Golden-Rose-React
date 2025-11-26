@@ -36,7 +36,7 @@ function Footer() {
         </div>
 
         <p className="mb-0 small text-secondary">
-          &copy; 2025 Golden Rose — Todos los derechos reservados.
+          &copy; 2025 Golden Rose. Todos los derechos reservados.
         </p>
       </div>
     </footer>

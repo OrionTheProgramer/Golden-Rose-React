@@ -38,5 +38,5 @@ test('muestra datos del perfil almacenado', async () => {
 
   expect(await screen.findByText(/Perfil de adminUser/i)).toBeInTheDocument();
   expect(screen.getByText(/admin@example.com/i)).toBeInTheDocument();
-  expect(screen.getByText(/admin/i)).toBeInTheDocument();
+  expect(screen.getByText((text) => text.includes('Rol') && text.toLowerCase().includes('admin'))).toBeInTheDocument();
 });

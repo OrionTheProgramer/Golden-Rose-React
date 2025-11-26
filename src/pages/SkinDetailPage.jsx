@@ -8,7 +8,10 @@ import { obtenerProductoPorIdApi } from '../data/catalogService';
 import apiBase from '../data/apiConfig';
 
 function resolveImage({ id, image, hasImageData }) {
-  if (hasImageData && id) return `${apiBase.catalogo}/api/productos/${id}/imagen`;
+  if (hasImageData && id) {
+    const base = apiBase.producto || apiBase.catalogo;
+    return `${base}/api/productos/${id}/imagen`;
+  }
   return image;
 }
 
@@ -33,6 +36,8 @@ function SkinDetailPage() {
           Type: apiSkin.categoriaNombre,
           Category: apiSkin.categoriaNombre,
           hasImageData: apiSkin.hasImageData,
+          rareza: apiSkin.rareza,
+          rarezaIconUrl: apiSkin.rarezaIconUrl,
         };
         setSkin(mapped);
       } catch (err) {
@@ -74,7 +79,7 @@ function SkinDetailPage() {
   }
 
   const handleAddToCart = () => {
-    addToCart(skin);
+    addToCart({ ...skin, image: imgSrc });
     setShowModal(true); 
   };
 
@@ -107,6 +112,14 @@ function SkinDetailPage() {
               <h3>Precio: <span className="text-success">${skin.price?.toLocaleString('es-CL')}</span></h3>
               <h5>Tipo: {skin.Type}</h5>
               <h5>Categoría: {skin.Category}</h5>
+              {skin.rareza && (
+                <div className="d-flex align-items-center gap-2 mt-2">
+                  <h6 className="mb-0">Rareza: {skin.rareza}</h6>
+                  {skin.rarezaIconUrl && (
+                    <img src={skin.rarezaIconUrl} alt={skin.rareza} style={{ width: "32px", height: "32px" }} />
+                  )}
+                </div>
+              )}
             </div>
             <div>
               <Button variant="info" size="lg" className="mt-3" onClick={handleAddToCart}>

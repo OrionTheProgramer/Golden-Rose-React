@@ -1,46 +1,73 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Carousel, Row, Col, Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import skinsData from '../data/data.json';
+import { obtenerProductosApi } from '../data/catalogService';
+import apiBase from '../data/apiConfig';
+
+function resolveImage({ id, image, hasImageData }) {
+  if (hasImageData && id) {
+    const base = apiBase.producto || apiBase.catalogo;
+    return `${base}/api/productos/${id}/imagen`;
+  }
+  return image;
+}
 
 function Home() {
   const navigate = useNavigate();
 
-  const featured = skinsData.slice(0, 3);
+  const [featured, setFeatured] = useState(() => skinsData.slice(0, 3));
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const apiProducts = await obtenerProductosApi();
+        setFeatured(apiProducts.slice(0, 3));
+      } catch (err) {
+        setFeatured(skinsData.slice(0, 3));
+      }
+    };
+    load();
+  }, []);
 
   return (
     <Container className="my-5">
       {/* Carousel de skins destacadas */}
-      {/* El ID se mantiene para que el CSS le aplique el estilo de sombra y tamaño */}
       <Carousel id='carouselSkins' interval={3000} pause='hover'>
-        {featured.map((skin) => (
-          <Carousel.Item key={skin.id}>
-            <div style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }} onClick={() => navigate(`/skin/${skin.id}`)}>
-              {/* No más 'style' en línea, el CSS lo maneja */}
-              <img
-                src={skin.image}
-                alt={skin.name}
-              />
-            </div>
-            <Carousel.Caption>
-              <h3>{skin.name}</h3>
-              <p className="d-none d-md-block">{skin.desc.slice(0, 120)}...</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
+        {featured.map((skin) => {
+          const imgSrc = resolveImage({
+            id: skin.id,
+            image: skin.image || skin.imagenUrl,
+            hasImageData: skin.hasImageData,
+          });
+          return (
+            <Carousel.Item key={skin.id}>
+              <div style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }} onClick={() => navigate(`/skin/${skin.id}`)}>
+                <img
+                  src={imgSrc}
+                  alt={skin.name || skin.nombre}
+                />
+              </div>
+              <Carousel.Caption>
+                <h3>{skin.name || skin.nombre}</h3>
+                {skin.rarezaIconUrl && (
+                  <img src={skin.rarezaIconUrl} alt="Rareza" style={{ width: "32px", height: "32px" }} />
+                )}
+                <p className="d-none d-md-block">{(skin.desc || skin.descripcion || "").slice(0, 120)}...</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          );
+        })}
       </Carousel>
 
       {/* Sección de reseñas */}
-      {/* Mantenemos el ID para el estilo del <h2> */}
       <section className="mt-5" id='comentarios'> 
         <h2 className="mb-4 text-center">Comentarios y calificaciones</h2>
         <Row>
           {/* Columna 1 */}
           <Col md={4}>
-            {/* Solo se necesita la clase .card y el margen 'mb-3' */}
             <Card className="mb-3">
               <Card.Body>
-                {/* No más 'style' en línea */}
                 <Card.Title>Juan</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">5/5</Card.Subtitle>
                 <Card.Text>
