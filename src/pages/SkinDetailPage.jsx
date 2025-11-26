@@ -1,8 +1,8 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, Spinner } from 'react-bootstrap';
-import skinsData from '../data/data.json';
 import { useCart } from '../context/CartContext'; 
+import { useAuth } from '../context/AuthContext';
 import ModalComponent from '../components/ModalComponent'; 
 import { obtenerProductoPorIdApi } from '../data/catalogService';
 import apiBase from '../data/apiConfig';
@@ -18,6 +18,7 @@ function resolveImage({ id, image, hasImageData }) {
 function SkinDetailPage() {
   const { id } = useParams();
   const { addToCart } = useCart(); 
+  const { user } = useAuth();
   const [skin, setSkin] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -34,16 +35,13 @@ function SkinDetailPage() {
           image: apiSkin.imagenUrl,
           desc: apiSkin.descripcion,
           Type: apiSkin.categoriaNombre,
-          Category: apiSkin.categoriaNombre,
           hasImageData: apiSkin.hasImageData,
           rareza: apiSkin.rareza,
           rarezaIconUrl: apiSkin.rarezaIconUrl,
         };
         setSkin(mapped);
       } catch (err) {
-        const local = skinsData.find((s) => s.id === id);
-        if (local) setSkin(local);
-        else setError('Skin no encontrada');
+        setError('Skin no encontrada');
       } finally {
         setLoading(false);
       }
@@ -78,12 +76,13 @@ function SkinDetailPage() {
     );
   }
 
+  const imgSrc = resolveImage({ id: skin.id, image: skin.image, hasImageData: skin.hasImageData });
+
   const handleAddToCart = () => {
+    if (!user) return;
     addToCart({ ...skin, image: imgSrc });
     setShowModal(true); 
   };
-
-  const imgSrc = resolveImage({ id: skin.id, image: skin.image, hasImageData: skin.hasImageData });
 
   return (
     <>
@@ -111,20 +110,20 @@ function SkinDetailPage() {
             <div className="mb-3">
               <h3>Precio: <span className="text-success">${skin.price?.toLocaleString('es-CL')}</span></h3>
               <h5>Tipo: {skin.Type}</h5>
-              <h5>Categoría: {skin.Category}</h5>
-              {skin.rareza && (
+              {(skin.rareza || skin.rarezaIconUrl) && (
                 <div className="d-flex align-items-center gap-2 mt-2">
-                  <h6 className="mb-0">Rareza: {skin.rareza}</h6>
                   {skin.rarezaIconUrl && (
-                    <img src={skin.rarezaIconUrl} alt={skin.rareza} style={{ width: "32px", height: "32px" }} />
+                    <img src={skin.rarezaIconUrl} alt={skin.rareza || "Rareza"} style={{ width: "32px", height: "32px" }} />
                   )}
+                  {skin.rareza && <h6 className="mb-0">{skin.rareza}</h6>}
                 </div>
               )}
             </div>
             <div>
-              <Button variant="info" size="lg" className="mt-3" onClick={handleAddToCart}>
+              <Button variant="info" size="lg" className="mt-3" onClick={handleAddToCart} disabled={!user}>
                 Añadir al carrito
               </Button>
+              {!user && <p className="text-muted mt-2 mb-0">Inicia sesión para comprar.</p>}
             </div>
           </Col>
         </Row>

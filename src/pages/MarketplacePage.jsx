@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Form, InputGroup, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Form, InputGroup, Spinner, Alert } from "react-bootstrap";
 import SkinCard from "../components/SkinCard";
-import skinsDataLocal from "../data/data.json";
 import { obtenerProductosApi } from "../data/catalogService";
 
 function MarketplacePage() {
@@ -9,6 +8,7 @@ function MarketplacePage() {
   const [selectedType, setSelectedType] = useState("all");
   const [skinsData, setSkinsData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const load = async () => {
@@ -16,8 +16,8 @@ function MarketplacePage() {
         const apiData = await obtenerProductosApi();
         setSkinsData(apiData);
       } catch (err) {
-        console.error("Fallo carga API, usando datos locales", err);
-        setSkinsData(skinsDataLocal);
+        console.error("Fallo carga API", err);
+        setError("No se pudieron cargar las skins");
       } finally {
         setLoading(false);
       }
@@ -45,6 +45,7 @@ function MarketplacePage() {
           <span>Cargando catálogo...</span>
         </div>
       )}
+      {error && <Alert variant="danger" className="mt-2">{error}</Alert>}
 
       <Row className="mb-4 p-3 card" style={{ backgroundColor: "var(--color-surface)" }}>
         <Col md={7} className="mb-3 mb-md-0">
@@ -82,12 +83,13 @@ function MarketplacePage() {
             <Col key={skin.id} xs={12} md={6} lg={3} className="mb-4">
               <SkinCard
                 id={skin.id}
-                name={skin.name || skin.nombre}
-                price={skin.price || skin.precio}
-                image={skin.image || skin.imagenUrl}
-                type={skin.Type || skin.type || skin.categoriaNombre}
-                category={skin.Category || skin.categoriaNombre}
+                name={skin.nombre || skin.name}
+                price={skin.precio || skin.price}
+                image={skin.imagenUrl || skin.image}
+                type={skin.categoriaNombre || skin.type || skin.Type}
+                rareza={skin.rareza}
                 rarezaIconUrl={skin.rarezaIconUrl}
+                hasImageData={skin.hasImageData}
               />
             </Col>
           ))

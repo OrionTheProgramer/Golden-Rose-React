@@ -20,7 +20,7 @@ function Carrito() {
   const total = subtotal + commission + shipping;
 
   const handleCheckout = () => {
-    if (cartItems.length === 0) return;
+    if (cartItems.length === 0 || !user) return;
 
     const orderDetails = {
       orderId: `GR-${Date.now().toString().slice(-6)}`,
@@ -158,11 +158,12 @@ function Carrito() {
                 <div className="d-grid">
                   <Button
                     variant="primary"
-                    disabled={cartItems.length === 0}
+                    disabled={cartItems.length === 0 || !user}
                     onClick={handleCheckout}
                   >
                     Pagar Ahora
                   </Button>
+                  {!user && <small className="text-muted mt-2">Inicia sesión para completar la compra.</small>}
                 </div>
               </Card.Body>
             </Card>

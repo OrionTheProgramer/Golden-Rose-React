@@ -10,7 +10,7 @@ function resolveImage({ id, image, hasImageData }) {
   return image;
 }
 
-function SkinCard({ id, name, image, price, type, category, hasImageData, rarezaIconUrl }) {
+function SkinCard({ id, name, image, price, type, rareza, hasImageData, rarezaIconUrl }) {
   const imgSrc = resolveImage({ id, image, hasImageData });
 
   return (
@@ -19,17 +19,14 @@ function SkinCard({ id, name, image, price, type, category, hasImageData, rareza
       <Card.Body>
         <Card.Title>{name}</Card.Title>
         <Card.Text>
-          Tipo: {type} <br />
-          Categoria: {category}
+          Tipo: {type}
         </Card.Text>
-        {category && (
-          <div className="mb-2">
-            <img src={category} alt="Categoria" style={{ width: "32px", height: "32px" }} />
-          </div>
-        )}
-        {rarezaIconUrl && (
-          <div className="mb-2">
-            <img src={rarezaIconUrl} alt="Rareza" style={{ width: "32px", height: "32px" }} />
+        {(rarezaIconUrl || rareza) && (
+          <div className="d-flex align-items-center gap-2 mb-2">
+            {rarezaIconUrl && (
+              <img src={rarezaIconUrl} alt={rareza || "Rareza"} style={{ width: "28px", height: "28px" }} />
+            )}
+            {rareza && <span>{rareza}</span>}
           </div>
         )}
         <Button as={Link} to={`/skin/${id}`} variant="primary">Ver Detalles</Button>

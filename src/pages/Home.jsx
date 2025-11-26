@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Carousel, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Carousel, Row, Col, Card, Button, Alert, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import skinsData from '../data/data.json';
 import { obtenerProductosApi } from '../data/catalogService';
 import apiBase from '../data/apiConfig';
 
@@ -16,7 +15,9 @@ function resolveImage({ id, image, hasImageData }) {
 function Home() {
   const navigate = useNavigate();
 
-  const [featured, setFeatured] = useState(() => skinsData.slice(0, 3));
+  const [featured, setFeatured] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const load = async () => {
@@ -24,7 +25,9 @@ function Home() {
         const apiProducts = await obtenerProductosApi();
         setFeatured(apiProducts.slice(0, 3));
       } catch (err) {
-        setFeatured(skinsData.slice(0, 3));
+        setError("No se pudieron cargar las skins destacadas");
+      } finally {
+        setLoading(false);
       }
     };
     load();
@@ -32,12 +35,20 @@ function Home() {
 
   return (
     <Container className="my-5">
+      {loading && (
+        <div className="d-flex align-items-center gap-2 mb-3">
+          <Spinner animation="border" size="sm" />
+          <span>Cargando catálogo...</span>
+        </div>
+      )}
+      {error && <Alert variant="danger">{error}</Alert>}
+
       {/* Carousel de skins destacadas */}
       <Carousel id='carouselSkins' interval={3000} pause='hover'>
         {featured.map((skin) => {
           const imgSrc = resolveImage({
             id: skin.id,
-            image: skin.image || skin.imagenUrl,
+            image: skin.imagenUrl || skin.image,
             hasImageData: skin.hasImageData,
           });
           return (
@@ -45,15 +56,18 @@ function Home() {
               <div style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }} onClick={() => navigate(`/skin/${skin.id}`)}>
                 <img
                   src={imgSrc}
-                  alt={skin.name || skin.nombre}
+                  alt={skin.nombre || skin.name}
                 />
               </div>
               <Carousel.Caption>
-                <h3>{skin.name || skin.nombre}</h3>
-                {skin.rarezaIconUrl && (
-                  <img src={skin.rarezaIconUrl} alt="Rareza" style={{ width: "32px", height: "32px" }} />
+                <h3>{skin.nombre || skin.name}</h3>
+                {(skin.rarezaIconUrl || skin.rareza) && (
+                  <div className="d-flex align-items-center gap-2 justify-content-center">
+                    {skin.rarezaIconUrl && <img src={skin.rarezaIconUrl} alt="Rareza" style={{ width: "32px", height: "32px" }} />}
+                    {skin.rareza && <span>{skin.rareza}</span>}
+                  </div>
                 )}
-                <p className="d-none d-md-block">{(skin.desc || skin.descripcion || "").slice(0, 120)}...</p>
+                <p className="d-none d-md-block">{(skin.descripcion || skin.desc || "").slice(0, 120)}...</p>
               </Carousel.Caption>
             </Carousel.Item>
           );
