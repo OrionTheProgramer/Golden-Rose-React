@@ -1,4 +1,4 @@
-Golden Rose – Frontend & Backend Microservicios
+Golden Rose - Frontend & Backend Microservicios
 ================================================
 
 Este repositorio contiene:
@@ -6,14 +6,14 @@ Este repositorio contiene:
 - Backend de microservicios Spring Boot (directorio `golden-rose-backend/`).
 
 Servicios y puertos
-- Autentificación: 8001
+- Autenticación: 8001
 - Carrito: 8002
 - Usuarios: 8003
 - Catálogo: 8004 (categorías / fallback productos)
 - Inventario: 8005
 - Órdenes: 8006
 - Pagos: 8007
-- Productos (opcional/dedicado): 8008 (`VITE_API_PRODUCTO`)
+- Productos (microservicio dedicado): 8008 (`VITE_API_PRODUCTO`)
 
 Frontend
 1) Crear `.env` (ver `.env.example`) con las URLs de los servicios.
@@ -34,13 +34,26 @@ Estructura relevante
 - `src/data/apiConfig.js`: configuración de endpoints.
 - `golden-rose-backend/`:
   - `Autentificacion/` (login/registro JWT)
-  - `Carrito/`, `Usuario/`, `Catalogo/`, `Inventario/`, `Ordenes/`, `Pagos/`
+  - `Carrito/`, `Usuario/`, `Catalogo/`, `Inventario/`, `Ordenes/`, `Pagos/`, `Productos/`
   - `start-all.sh` y `start-all.ps1` para lanzar todos
 
-Notas de integración
-- El frontend consume los microservicios vía `VITE_API_*` (ver `.env.example`).
-- Productos: se consulta primero `VITE_API_PRODUCTO` (microservicio dedicado, puerto 8008). Si no responde, se usa Catálogo (8004) como respaldo.
-- Imágenes de productos: el backend de catálogo soporta `imagenUrl` o imagen embebida (endpoint `/api/productos/{id}/imagen`).
+Crear productos (solo URL de imagen)
+`POST /api/productos` en el microservicio Productos (8008):
+```json
+{
+  "nombre": "Vandal Champions 2025",
+  "descripcion": "Edición especial",
+  "rareza": "Exclusive",
+  "precio": 49.99,
+  "imagenUrl": "https://ejemplo.com/vandal.png",
+  "stock": 25
+}
+```
+Actualizar: `PUT /api/productos/{id}` con el mismo cuerpo.
+
+Notas
+- Los POST/PUT de productos se hacen en `Productos` (8008). `Catalogo` responde con redirect y lee desde Productos.
+- Imágenes de productos: consumir directamente `imagenUrl`.
 
 Tests
 - Frontend: `npm test` (Vitest).

@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from "react";
 import { Table } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom";
-import { obtenerProductos, editarProducto, eliminarProducto  } from "../../../data/inventarioService";
+import { obtenerProductos, eliminarProducto  } from "../../../data/inventarioService";
 
 function MostrarProductos() {
     const [productos, setProductos] = useState([]);
@@ -21,18 +21,6 @@ function MostrarProductos() {
     useEffect(() => {
         load();
     }, []);
-
-    const handleEditarStock = async (id) => {
-        const nuevoStock = prompt("Ingrese nuevo stock:");
-        if (nuevoStock !== null) {
-            try {
-                await editarProducto(id, { stock: Number(nuevoStock) });
-                load();
-            } catch (err) {
-                alert("No se pudo actualizar el stock");
-            }
-        }
-    };
 
     const handleEditarProducto = (id) => {
         navigate(`/admin/productos/editar/${id}`);
@@ -98,12 +86,6 @@ function MostrarProductos() {
                                 onClick={() => handleEditarProducto(p.id)}
                                 >
                                 Editar
-                                </button>
-                                <button
-                                className="btn btn-success btn-sm"
-                                onClick={() => handleEditarStock(p.id)}
-                                >
-                                Editar Stock
                                 </button>
                                 <button
                                 className="btn btn-danger btn-sm"
