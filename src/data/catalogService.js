@@ -1,4 +1,5 @@
-﻿import apiBase from "./apiConfig";
+import apiBase from "./apiConfig";
+import skinsDataLocal from "./data.json";
 
 const getProductoBase = () => apiBase.producto || apiBase.catalogo;
 
@@ -15,8 +16,11 @@ export const obtenerProductosApi = async () => {
   if (!res.ok) {
     res = await fetch(`${apiBase.catalogo}/api/productos`);
   }
-  if (!res.ok) throw new Error("No se pudieron cargar los productos");
-  return unwrapProductos(res);
+  if (!res.ok) {
+    return skinsDataLocal;
+  }
+  const list = await unwrapProductos(res);
+  return list.length > 0 ? list : skinsDataLocal;
 };
 
 export const obtenerProductoPorIdApi = async (id) => {
@@ -24,12 +28,16 @@ export const obtenerProductoPorIdApi = async (id) => {
   if (!res.ok) {
     res = await fetch(`${apiBase.catalogo}/api/productos/${id}`);
   }
-  if (!res.ok) throw new Error("Producto no encontrado");
+  if (!res.ok) {
+    const local = skinsDataLocal.find((s) => `${s.id}` === `${id}`);
+    if (local) return local;
+    throw new Error("Producto no encontrado");
+  }
   return res.json();
 };
 
 export const obtenerCategoriasApi = async () => {
   const res = await fetch(`${apiBase.catalogo}/api/categorias`);
-  if (!res.ok) throw new Error("No se pudieron cargar las categorías");
+  if (!res.ok) throw new Error("No se pudieron cargar las categor�as");
   return res.json();
 };

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/icon.png";
 import "../css/style.css";
@@ -30,7 +30,13 @@ function Login() {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
 
-    const authResult = await verificarCredenciales(email, password);
+    let authResult = null;
+    try {
+      authResult = await verificarCredenciales(email, password);
+    } catch (err) {
+      handleShowModal("Error de Inicio de Sesión", "No se pudo conectar al servicio de autenticación.");
+      return;
+    }
 
     if (!authResult) {
       handleShowModal("Error de Inicio de Sesión", "Correo o Contraseña inválidos.");

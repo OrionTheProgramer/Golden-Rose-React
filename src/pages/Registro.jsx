@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/icon.png";
 import "../css/style.css";
@@ -6,22 +6,22 @@ import { registroUser } from "../data/authDataService";
 import ModalComponent from "../components/ModalComponent";
 
 function Registro() {
-    useEffect(() => {
-      document.title = "Registrarse | Golden Rose";
-    }, []);
+  useEffect(() => {
+    document.title = "Registrarse | Golden Rose";
+  }, []);
 
-    const [validated, setValidated] = useState(false);
-    const navigate = useNavigate();
+  const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
 
-    const [showModal, setShowModal] = useState(false);
-    const [modalTitle, setModalTitle] = useState("");
-    const [modalBody, setModalBody] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalBody, setModalBody] = useState("");
 
-    const handleShowModal = (title, body) => {
-      setModalTitle(title);
-      setModalBody(body);
-      setShowModal(true);
-    };
+  const handleShowModal = (title, body) => {
+    setModalTitle(title);
+    setModalBody(body);
+    setShowModal(true);
+  };
 
   const handleRegistroSubmit = async (event) => {
     event.preventDefault();
@@ -43,9 +43,9 @@ function Registro() {
 
       try {
         const newUser = await registroUser(username, email, password);
-        handleShowModal(`Registro exitoso para ${username}! Tu rol asignado es: ${newUser.role}. Ahora inicia sesión.`);
+        handleShowModal("Registro Exitoso!", `Bienvenido ${username}. Tu rol asignado es: ${newUser.role}. Ahora inicia sesión.`);
       } catch (error) {
-        handleShowModal(`Error de registro: ${error.message}`);
+        handleShowModal("Error de registro", error.message);
       }
     }
     setValidated(true);
@@ -58,7 +58,7 @@ function Registro() {
         handleClose={() => {
           setShowModal(false);
           if (modalTitle === "Registro Exitoso!") {
-            navigate("/Login");
+            navigate("/login");
           }
         }}
         title={modalTitle}
@@ -69,11 +69,11 @@ function Registro() {
         <section id="registro" className="row justify-content-center">
           <section className="text-center mb-5">
             <figure>
-            <img
-              src={logo}
-              alt="Logo de Golden Rose"
-              className="icon-logo-v1"
-            />
+              <img
+                src={logo}
+                alt="Logo de Golden Rose"
+                className="icon-logo-v1"
+              />
               <figcaption className="visually-hidden">Logo de Golden Rose</figcaption>
             </figure>
             <h1 className="row justify-content-center">
