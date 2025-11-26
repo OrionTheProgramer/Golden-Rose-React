@@ -20,7 +20,16 @@ export const obtenerProductosApi = async () => {
     return skinsDataLocal;
   }
   const list = await unwrapProductos(res);
-  return list.length > 0 ? list : skinsDataLocal;
+  // Merge backend + locales (sin duplicar ids)
+  const byId = new Map();
+  list.forEach((p) => byId.set(String(p.id), p));
+  skinsDataLocal.forEach((p) => {
+    const id = String(p.id);
+    if (!byId.has(id)) {
+      byId.set(id, p);
+    }
+  });
+  return Array.from(byId.values());
 };
 
 export const obtenerProductoPorIdApi = async (id) => {

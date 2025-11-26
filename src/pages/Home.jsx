@@ -1,61 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Carousel, Row, Col, Card, Button, Alert, Spinner } from 'react-bootstrap';
+import { Container, Carousel, Row, Col, Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { obtenerProductosApi } from '../data/catalogService';
-import apiBase from '../data/apiConfig';
-
-function resolveImage({ id, image, hasImageData }) {
-  if (hasImageData && id) {
-    const base = apiBase.producto || apiBase.catalogo;
-    return `${base}/api/productos/${id}/imagen`;
-  }
-  return image;
-}
+import skinsData from '../data/data.json';
 
 function Home() {
   const navigate = useNavigate();
 
-  const [featured, setFeatured] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const apiProducts = await obtenerProductosApi();
-        setFeatured(apiProducts.slice(0, 3));
-      } catch (err) {
-        setError("No se pudieron cargar las skins destacadas");
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
-  }, []);
+  const [featured, setFeatured] = useState(() => skinsData.slice(0, 3));
 
   return (
     <Container className="my-5">
-      {loading && (
-        <div className="d-flex align-items-center gap-2 mb-3">
-          <Spinner animation="border" size="sm" />
-          <span>Cargando catálogo...</span>
-        </div>
-      )}
-      {error && <Alert variant="danger">{error}</Alert>}
-
       {/* Carousel de skins destacadas */}
       <Carousel id='carouselSkins' interval={3000} pause='hover'>
         {featured.map((skin) => {
-          const imgSrc = resolveImage({
-            id: skin.id,
-            image: skin.imagenUrl || skin.image,
-            hasImageData: skin.hasImageData,
-          });
           return (
             <Carousel.Item key={skin.id}>
               <div style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }} onClick={() => navigate(`/skin/${skin.id}`)}>
                 <img
-                  src={imgSrc}
+                  src={skin.image || skin.imagenUrl}
                   alt={skin.nombre || skin.name}
                 />
               </div>
